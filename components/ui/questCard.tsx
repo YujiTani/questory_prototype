@@ -41,7 +41,7 @@ export interface QuestProps
   asChild?: boolean
 }
 
-const Quest = React.forwardRef<HTMLButtonElement, QuestProps>(
+const QuestCard = React.forwardRef<HTMLButtonElement, QuestProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
@@ -53,6 +53,6 @@ const Quest = React.forwardRef<HTMLButtonElement, QuestProps>(
     )
   }
 )
-Quest.displayName = "Button"
+QuestCard.displayName = "Button"
 
-export { Quest, questVariants }
+export { QuestCard, questVariants }
