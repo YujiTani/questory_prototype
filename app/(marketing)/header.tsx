@@ -18,11 +18,11 @@ export const Header = () => {
             className="rounded-full"
             src="/icon_yuzu.svg"
             alt="logo"
-            width={40}
-            height={40}
+            width={60}
+            height={60}
           />
           <h1 className="text-2xl font-extrabold text-green-700 tracking-wide">
-            Clone Duolingo
+            QueStory
           </h1>
         </div>
         <ClerkLoading>

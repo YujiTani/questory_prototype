@@ -23,23 +23,16 @@ const Sidebar = ({ className }: Props) => {
     >
       <Link href="/">
         <div className="flex items-center gap-3">
-          <Image
-            className="rounded-full"
-            src="/icon_yuzu.svg"
-            alt="logo"
-            width={40}
-            height={40}
-          />
-          <h1 className="text-2xl font-extrabold text-green-700 tracking-wide">
-            Clone Duolingo
+          <h1 className="text-3xl font-extrabold text-green-700 tracking-wide">
+            QueStory
           </h1>
         </div>
       </Link>
       <div className="mt-10 h-full flex flex-col gap-5 justify-between">
         <SidebarItem
-          href="/learn"
-          iconSrc="/icon_learn.svg"
-          label="Learn"
+          href="/quests"
+          iconSrc="/icon_Destination.svg"
+          label="Quests"
           className="w-[230px] m-auto"
         />
         <div>
@@ -53,8 +46,8 @@ const Sidebar = ({ className }: Props) => {
             <SignedOut>
               <SignInButton
                 mode="modal"
-                afterSignInUrl="/learn"
-                afterSignUpUrl="/learn"
+                afterSignInUrl="/quests"
+                afterSignUpUrl="/quests"
               >
                 <Button variant="ghost">Login</Button>
               </SignInButton>

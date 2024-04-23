@@ -14,7 +14,7 @@ const SidebarItem = ({ label, href, iconSrc, className }: Prop) => {
     <>
       <Link href={href}>
         <div className="flex items-center gap-2">
-          <Button variant="primary" size="lg" className={className}>
+          <Button size="lg" className={className}>
             <Image src={iconSrc} alt={label} width={24} height={24} />
             <span className="ml-3">{label}</span>
           </Button>
