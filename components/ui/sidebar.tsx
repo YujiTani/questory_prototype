@@ -8,12 +8,16 @@ import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Button } from "./button";
 import { Loader } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 type Props = {
   className?: string;
 };
 
 const Sidebar = ({ className }: Props) => {
+	const pathname = usePathname();
+	const isActive = (path: string) => path === pathname;
+
   return (
     <div
       className={cn(
