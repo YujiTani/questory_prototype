@@ -17,8 +17,8 @@ export const quests = [
   },
   {
     id: 2,
-    name: "ActiveRecord",
-    description: "ActiveRecordを練習しよう!",
+    name: "Active_Record",
+    description: "Active_Recordを練習しよう!",
     image: "/icon_ORM.svg",
     state: "coming_soon",
   },

@@ -1,4 +1,4 @@
-export type Stage = {
+export type StageType = {
   id: number;
   index: number;
   complete_case: number; //  1: "全問正解"
@@ -35,4 +35,4 @@ export const stages = [
     failed_case: 1,
     area_id: 2,
   },
-] as const satisfies Stage[];
+] as const satisfies StageType[];

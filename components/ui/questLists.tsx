@@ -8,6 +8,10 @@ type Props = {
 };
 
 const QuestLists = ({ quests }: Props) => {
+  function lowerString(questName: string) {
+    return questName.toLowerCase()
+  }
+
   return (
       <div className="mt-5 flex flex-wrap gap-4 justify-center">
         {/* QuestListコンポーネントに切り出す  */}
@@ -15,7 +19,7 @@ const QuestLists = ({ quests }: Props) => {
           quests.map((quest) => (
             <Link
               key={quest.id}
-              href={`/quests/${quest.id}`}
+              href={`/${lowerString(quest.name)}/1`}
               className="flex flex-col items-center"
             >
               <QuestCard>
