@@ -30,7 +30,7 @@ export const quests = [
     state: "coming_soon",
   },
   {
-    id: 3,
+    id: 4,
     name: "RubyonRails",
     description: "RubyonRails",
     image: "/icon_Rails.svg",
