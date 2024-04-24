@@ -11,7 +11,7 @@ export default authMiddleware({
     )
   },
 
-  publicRoutes: ["/", "/quests"],
+  publicRoutes: ["/", "/quests", "/sql/:id", "active_record/:id", "ruby/:id"],
 });
 
 export const config = {
