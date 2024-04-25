@@ -1,5 +1,6 @@
 import { StageType } from "@/data/stages";
 import { Stage } from "./stageItem";
+import ImageCenter from "../object/imageCenter";
 
 
 type Props = {
@@ -14,11 +15,11 @@ const StageList = ({ stages }: Props) => {
         stage.id % 2 !== 0 ? (
           <>
             <Stage key={stage.id} variant="primary" />
-            <Stage key={`ghost-${stage.id}`} variant="ghost" /> 
+            <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
           </>
         ) : (
           <>
-            <Stage key={`ghost-${stage.id}`} variant="ghost" /> 
+            <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
             <Stage key={stage.id} variant="primary" />
           </>
         )
