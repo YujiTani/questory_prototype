@@ -10,7 +10,7 @@ const stageVariants = cva(
     variants: {
       variant: {
         default: "bg-white text-black border-slate-200 active:border-b-2 hover:bg-slate-100 text-slate-500",
-        primary: "bg-sky-400 text-primary-foreground hover:bg-sky-400/80 border-sky-500 active:border-b-0",
+        primary: "bg-sky-400 text-primary-foreground border-sky-500 hover:bg-sky-400/80 active:border-b-0 active:bg-sky-400/80 focus:ring-4 focus:ring-violet-600",
         primaryOutline: "border-white text-sky-500 hover:bg-slate-100",
         secondary: "bg-green-500 text-primary-foreground hover:bg-green-500/80 border-green-600 border-b-[6px] active:border-b-0",
         secondaryOutline: "border-slate-200 text-green-500 hover:bg-green-100",
