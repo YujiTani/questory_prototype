@@ -1,4 +1,4 @@
-export const runttime = "edge";
+export const runtime = "edge";
 
 import StageList from "@/components/ui/stageList";
 import { stages } from "@/data/stages";
