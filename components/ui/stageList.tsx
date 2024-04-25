@@ -1,6 +1,7 @@
 import { StageType } from "@/data/stages";
 import { Stage } from "./stageItem";
 import ImageCenter from "../object/imageCenter";
+import Link from "next/link";
 
 
 type Props = {
@@ -14,13 +15,17 @@ const StageList = ({ stages }: Props) => {
       { stages.map((stage) => 
         stage.id % 2 !== 0 ? (
           <>
+          <Link href={`stage/${stage.index}`} >
             <Stage key={stage.id} variant="primary" />
+          </Link>
             <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
           </>
         ) : (
           <>
             <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
-            <Stage key={stage.id} variant="primary" />
+            <Link href={`stage/${stage.index}`} >
+              <Stage key={stage.id} variant="primary" />
+            </Link>
           </>
         )
       )}

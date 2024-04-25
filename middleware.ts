@@ -1,5 +1,8 @@
 import { authMiddleware } from "@clerk/nextjs";
 
+// 同系統のURLは、authMiddlewareの外でまとめる
+const sqlPath = ["/sql/:id", "/sql/stage/:id"];
+
 export default authMiddleware({
   beforeAuth: (res) => {
     res.headers.append('Access-Control-Allow-Credentials', "true")
@@ -11,7 +14,8 @@ export default authMiddleware({
     )
   },
 
-  publicRoutes: ["/", "/quests", "/sql/:id", "active_record/:id", "ruby/:id"],
+
+  publicRoutes: ["/", "/quests", ...sqlPath, "active_record/:id", "ruby/:id", ],
 });
 
 export const config = {
