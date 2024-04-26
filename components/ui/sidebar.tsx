@@ -15,8 +15,8 @@ type Props = {
 };
 
 const Sidebar = ({ className }: Props) => {
-	const pathname = usePathname();
-	const isActive = (path: string) => path === pathname;
+  const pathname = usePathname();
+  const isActive = (path: string) => path === pathname;
 
   return (
     <div
@@ -45,7 +45,7 @@ const Sidebar = ({ className }: Props) => {
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>
-              <UserButton afterSignOutUrl="/">Hello</UserButton>
+              <UserButton afterSignOutUrl="/"></UserButton>
             </SignedIn>
             <SignedOut>
               <SignInButton
