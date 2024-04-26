@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/drawer";
 import { useState } from "react";
 import clsx from "clsx";
+import MultipleChoice from "@/components/question/multipleChoice";
 
 /**
  * TODO: ページ課題
@@ -25,6 +26,7 @@ import clsx from "clsx";
  * APIが出来たらFetch処理に変更する
  * Drawer部分をコンポーネント化する、解説テキストとDB部分を受け取れるようにする
  * 回答部分のコンポーネントを作成する
+ * questionに解答コンポーネントはどれを使うかcodeを渡す
  */
 const StagePage = ({ params }: { params: { id: string } }) => {
   const [snap, setSnap] = useState<number | string | null>("148px");
@@ -45,7 +47,14 @@ const StagePage = ({ params }: { params: { id: string } }) => {
             <span className="text-xs">1 / 11</span>
           </div>
         </div>
-        <main>
+        <main className="mt-20">
+          <MultipleChoice
+            answers={[
+              { id: "1", text: "りんご" },
+              { id: "2", text: "バナナ" },
+              { id: "3", text: "みかん" },
+            ]}
+          />
           {/* 解答欄コンポーネント(問題の提出形式により、どれを表示させるのか分岐する) */}
         </main>
         <footer>
