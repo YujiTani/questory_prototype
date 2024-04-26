@@ -23,6 +23,8 @@ import clsx from "clsx";
  * StageLayoutとして、切り出し取得データによって形を変えるようにする
  * 共通部分は、問題提出部分とフッターの解答&補足部分
  * APIが出来たらFetch処理に変更する
+ * Drawer部分をコンポーネント化する、解説テキストとDB部分を受け取れるようにする
+ * 回答部分のコンポーネントを作成する
  */
 const StagePage = ({ params }: { params: { id: string } }) => {
   const [snap, setSnap] = useState<number | string | null>("148px");
@@ -47,7 +49,6 @@ const StagePage = ({ params }: { params: { id: string } }) => {
           {/* 解答欄コンポーネント(問題の提出形式により、どれを表示させるのか分岐する) */}
         </main>
         <footer>
-          {/* 基本的にはSubmitボタンとスキップボタンを表示 */}
           <Drawer
             open={isOpen}
             onOpenChange={setIsOpen}
