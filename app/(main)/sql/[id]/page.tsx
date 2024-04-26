@@ -19,10 +19,10 @@ const SQLPage = ({ params }: { params: { id: string } }) => {
   const stages = stageData;
 
   return (
-    <>
+    <div className="divide-y-2">
       {areas.length > 0 ? (
         areas.map((area) => (
-          <div className="mt-10" key={area.id}>
+          <div className="py-10" key={area.id}>
             <div className="flex justify-end">
               <div className="w-3/4">
                 <Kanban
@@ -35,6 +35,7 @@ const SQLPage = ({ params }: { params: { id: string } }) => {
             <div className="mt-10">
               <StageList
                 stages={stages.filter((stage) => stage.area_id === area.id)}
+                area_image={area.image_url}
               />
             </div>
           </div>
@@ -44,7 +45,7 @@ const SQLPage = ({ params }: { params: { id: string } }) => {
           <p>Not Found</p>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

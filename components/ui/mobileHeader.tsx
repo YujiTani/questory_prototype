@@ -19,7 +19,10 @@ type Props = {
 export const MobileHeader = ({ className }: Props) => {
   return (
     <header
-      className={cn("h-[50px] w-full border-b-2 border-slate-200", className)}
+      className={cn(
+        "h-[50px] w-full border-b-2 bg-white border-slate-200",
+        className
+      )}
     >
       <div className="lg:max-w-screen-lg pt-5 px-4 pb-4 mx-auto flex items-center justify-between h-full">
         <div className="flex items-center gap-3">

@@ -5,9 +5,10 @@ import Link from "next/link";
 
 type Props = {
   stages: StageType[];
+  area_image: string;
 };
 
-const StageList = ({ stages }: Props) => {
+const StageList = ({ stages, area_image }: Props) => {
   return (
     <div className="grid grid-flow-row grid-cols-2 justify-items-center gap-4">
       {stages.map((stage) =>
@@ -16,11 +17,11 @@ const StageList = ({ stages }: Props) => {
             <Link href={`stage/${stage.index}`}>
               <Stage key={stage.id} variant="primary" />
             </Link>
-            <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
+            <ImageCenter imageURL={area_image} alt="grass" />
           </>
         ) : (
           <>
-            <ImageCenter imageURL="/area/grass_a.svg" alt="grass" />
+            <ImageCenter imageURL={area_image} alt="grass" />
             <Link href={`stage/${stage.index}`}>
               <Stage key={stage.id} variant="primary" />
             </Link>
