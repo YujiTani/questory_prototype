@@ -1,5 +1,4 @@
 // MEMO: useStateが呼び出せないため、クライアントで動かすように変更
-// export const runtime = "edge";
 "use client";
 
 import { Button } from "@/components/ui/button";
