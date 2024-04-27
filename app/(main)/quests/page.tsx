@@ -12,7 +12,7 @@ const QuestPage = () => {
 
   return (
     <div className="px-4">
-      <p className="text-right text-2x">どれを学びたい？</p>
+      <p className="text-right">どれを学びたい？</p>
       <QuestLists quests={quests} />
     </div>
   );

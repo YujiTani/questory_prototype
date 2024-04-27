@@ -1,14 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import SidebarItem from "./sidebarItem";
 import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Button } from "./button";
-import { Loader } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "./skeleton";
+
+export const runtime = "edge";
 
 type Props = {
   className?: string;
@@ -41,7 +42,7 @@ const Sidebar = ({ className }: Props) => {
         />
         <div>
           <ClerkLoading>
-            <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+            <Skeleton className="w-full h-[40px] bg-gray-200" />
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>

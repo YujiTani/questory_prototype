@@ -1,5 +1,5 @@
-import { MobileHeader } from "@/components/question/mobileHeader";
-import Sidebar from "@/components/ui/sidebar";
+import { MobileHeader } from "@/components/common/mobileHeader";
+import Sidebar from "@/components/common/sidebar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (

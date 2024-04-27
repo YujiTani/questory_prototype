@@ -6,7 +6,7 @@ import {
   DrawerPortal,
 } from "@/components/question/drawer";
 import clsx from "clsx";
-import { Button } from "../ui/button";
+import { Button } from "../common/button";
 
 type Props = {
   snap: number | string | null;

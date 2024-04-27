@@ -1,4 +1,4 @@
-import { Separator } from "../ui/separator";
+import { Separator } from "../common/separator";
 
 type Props = {
   title: string;

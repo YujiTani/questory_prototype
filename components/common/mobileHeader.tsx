@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/button";
 import { cn } from "@/lib/utils";
 import {
   ClerkLoaded,
@@ -11,6 +11,7 @@ import {
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import MobileSidebar from "./mobileSidebar";
+import { Skeleton } from "./skeleton";
 
 type Props = {
   className?: string;
@@ -29,7 +30,7 @@ export const MobileHeader = ({ className }: Props) => {
           <MobileSidebar />
         </div>
         <ClerkLoading>
-          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+          <Skeleton className="w-[40px] h-[40px] bg-gray-200" />
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>
