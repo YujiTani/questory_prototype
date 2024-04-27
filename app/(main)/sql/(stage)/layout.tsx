@@ -1,6 +1,6 @@
 "use client";
 
-import { StageHeader } from "@/components/ui/stageHeader";
+import { StageHeader } from "@/components/stage/stageHeader";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (

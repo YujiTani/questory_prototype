@@ -1,5 +1,5 @@
-import { Sheet, SheetContent, SheetTrigger } from "./sheet";
-import Sidebar from "./sidebar";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import Sidebar from "../ui/sidebar";
 import Image from "next/image";
 
 type Props = {

@@ -1,7 +1,21 @@
-import StageList from "@/components/ui/stageList";
+"use client";
+
+import StageList from "@/components/stage/stageList";
 import { areas as areaData } from "@/data/areas";
 import { stages as stageData } from "@/data/stages";
-import Kanban from "@/components/ui/kanban";
+import Kanban from "@/components/stage/kanban";
+import SuspenseBoundary from "@/components/common/suspenseBoundary";
+import { useParams } from "next/navigation";
+
+export const runtime = "edge";
+
+const SQLPage = () => {
+  return (
+    <SuspenseBoundary>
+      <InnerSQLPage />
+    </SuspenseBoundary>
+  );
+};
 
 /**
  * TODO:
@@ -11,7 +25,8 @@ import Kanban from "@/components/ui/kanban";
  * 4. stageの表現が物足りない
  * 5. areaDataにオブジェクト画像をもたせる
  */
-const SQLPage = ({ params }: { params: { id: string } }) => {
+const InnerSQLPage = () => {
+  const { id } = useParams<{ id: string }>();
   // TODO: APIが出来たらFetch処理に変更する
   const areas = areaData;
   const stages = stageData;
@@ -33,7 +48,7 @@ const SQLPage = ({ params }: { params: { id: string } }) => {
             <div className="mt-10">
               <StageList
                 stages={stages.filter((stage) => stage.area_id === area.id)}
-                area_image={area.image_url}
+                areaImage={area.image_url}
               />
             </div>
           </div>
