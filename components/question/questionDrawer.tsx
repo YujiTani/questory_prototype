@@ -10,11 +10,10 @@ import { Button } from "../ui/button";
 
 type Props = {
   snap: number | string | null;
-  setSnap: (snap: number | string | null) => void;
   isOpen: boolean;
 };
 
-const QuestionDrawer = ({ snap, setSnap, isOpen }: Props) => {
+const QuestionDrawer = ({ snap, isOpen }: Props) => {
   return (
     <Drawer
       open={isOpen}
@@ -23,7 +22,6 @@ const QuestionDrawer = ({ snap, setSnap, isOpen }: Props) => {
       dismissible={false}
       snapPoints={["148px", "355px", 1]}
       activeSnapPoint={snap}
-      setActiveSnapPoint={setSnap}
     >
       <DrawerPortal>
         <DrawerContent className="fixed flex flex-col bg-white border border-gray-200 border-b-none rounded-t-[10px] bottom-0 left-0 right-0 h-full max-h-[97%] mx-[-1px]">
