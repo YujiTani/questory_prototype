@@ -85,7 +85,11 @@ const StagePage = () => {
           )}
         </main>
         <SuspenseBoundary>
-          <QuestionDrawer snap={state.snap} isOpen={state.isOpen} />
+          <QuestionDrawer
+            snap={state.snap}
+            setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+            isOpen={state.isOpen}
+          />
         </SuspenseBoundary>
       </div>
     </>
