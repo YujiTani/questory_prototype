@@ -64,7 +64,6 @@ const StagePage = ({ params }: { params: { id: string } }) => {
         <footer>
           <Drawer
             open={isOpen}
-            onOpenChange={setIsOpen}
             modal={false}
             direction="bottom"
             dismissible={false}
