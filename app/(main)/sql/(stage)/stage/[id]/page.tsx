@@ -80,7 +80,12 @@ const InnerStagePage = () => {
         />
         <main className="mt-14">
           {state.currentQuestion?.type === "select" ? (
-            <MultipleChoice answers={answers} />
+            <MultipleChoice
+              answers={answers}
+              handleClick={(answer) =>
+                dispatch({ type: "SET_SELECTED_ANSWER", payload: answer })
+              }
+            />
           ) : (
             <div className="text-center">
               <h2 className="text-2xl font-bold">Coming Soon</h2>

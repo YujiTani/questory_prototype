@@ -5,7 +5,8 @@ export interface State {
   isOpen: boolean;
   questCount: number;
   totalCount: number;
-  currentQuestion: selectQuestion | sortingQuestion | undefined;
+  currentQuestion: selectQuestion | sortingQuestion | null;
+  selectedAnswer: string | null;
 }
 
 export type Action =
@@ -13,14 +14,16 @@ export type Action =
   | { type: 'TOGGLE_OPEN' }
   | { type: 'SET_QUEST_COUNT'; payload: number }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_CURRENT_QUESTION'; payload: selectQuestion | sortingQuestion };
+  | { type: 'SET_CURRENT_QUESTION'; payload: selectQuestion | sortingQuestion }
+  | { type: 'SET_SELECTED_ANSWER'; payload: string };
 
 export const initialState: State = {
   snap: "148px",
   isOpen: true,
   questCount: 1,
   totalCount: 0,
-  currentQuestion: undefined,
+  currentQuestion: null,
+  selectedAnswer: null,
 };
 
 export function reducer(state: State, action: Action): State {
@@ -35,6 +38,8 @@ export function reducer(state: State, action: Action): State {
       return { ...state, totalCount: action.payload };
     case 'SET_CURRENT_QUESTION':
       return { ...state, currentQuestion: action.payload };
+    case 'SET_SELECTED_ANSWER':
+      return { ...state, selectedAnswer: action.payload };
     default:
       return state;
   }
