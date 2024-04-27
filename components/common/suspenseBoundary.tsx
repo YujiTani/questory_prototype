@@ -17,7 +17,9 @@ function SuspenseBoundary({
   children,
   errorFallback,
   suspenseFallback = (
-    <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+    <div className="flex items-center justify-center h-full">
+      <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+    </div>
   ),
 }: SuspenseBoundaryProps) {
   return (

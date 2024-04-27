@@ -13,6 +13,14 @@ import SuspenseBoundary from "@/components/common/suspenseBoundary";
 
 export const runtime = "edge";
 
+const StagePage = () => {
+  return (
+    <SuspenseBoundary>
+      <InnerStagePage />
+    </SuspenseBoundary>
+  );
+};
+
 /**
  * TODO:
  * 1. APIが出来たらFetch処理に変更する
@@ -23,7 +31,7 @@ export const runtime = "edge";
  * 6. reducerの処理を理解する
  * 7. answerの作る部分を関数に切り出す
  */
-const StagePage = () => {
+const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -62,35 +70,29 @@ const StagePage = () => {
   return (
     <>
       <div className="scroll-smooth">
-        <SuspenseBoundary>
-          <QuestionInfo
-            target={
-              stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
-            }
-            title={state.currentQuestion?.question ?? ""}
-            index={state.questCount}
-            count={state.totalCount}
-          />
-        </SuspenseBoundary>
+        <QuestionInfo
+          target={
+            stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+          }
+          title={state.currentQuestion?.question ?? ""}
+          index={state.questCount}
+          count={state.totalCount}
+        />
         <main className="mt-14">
           {state.currentQuestion?.type === "select" ? (
-            <SuspenseBoundary>
-              <MultipleChoice answers={answers} />
-            </SuspenseBoundary>
+            <MultipleChoice answers={answers} />
           ) : (
             <div className="text-center">
-              <p>Coming Soon</p>
-              <p>鋭意開発中…💦</p>
+              <h2 className="text-2xl font-bold">Coming Soon</h2>
+              <p>鋭意開発中…🔧</p>
             </div>
           )}
         </main>
-        <SuspenseBoundary>
-          <QuestionDrawer
-            snap={state.snap}
-            setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
-            isOpen={state.isOpen}
-          />
-        </SuspenseBoundary>
+        <QuestionDrawer
+          snap={state.snap}
+          setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+          isOpen={state.isOpen}
+        />
       </div>
     </>
   );
