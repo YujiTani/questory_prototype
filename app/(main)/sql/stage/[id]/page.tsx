@@ -18,6 +18,7 @@ import {
 import { useState } from "react";
 import clsx from "clsx";
 import MultipleChoice from "@/components/question/multipleChoice";
+import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 
 /**
  * TODO: ページ課題
@@ -31,6 +32,8 @@ import MultipleChoice from "@/components/question/multipleChoice";
 const StagePage = ({ params }: { params: { id: string } }) => {
   const [snap, setSnap] = useState<number | string | null>("148px");
   const [isOpen, setIsOpen] = useState(true);
+
+  usePageTransitionGuard();
 
   return (
     <>
@@ -77,7 +80,6 @@ const StagePage = ({ params }: { params: { id: string } }) => {
                   })}
                 >
                   <DrawerHeader className="p-2">
-                    <Button variant="primaryOutline">Skip</Button>
                     <Button variant="primary">Submit</Button>
                   </DrawerHeader>
                   <DrawerFooter>
