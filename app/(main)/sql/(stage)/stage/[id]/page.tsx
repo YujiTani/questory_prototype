@@ -85,6 +85,7 @@ const InnerStagePage = () => {
               handleClick={(answer) =>
                 dispatch({ type: "SET_SELECTED_ANSWER", payload: answer })
               }
+              selectedAnswer={state.selectedAnswer}
             />
           ) : (
             <div className="text-center">
