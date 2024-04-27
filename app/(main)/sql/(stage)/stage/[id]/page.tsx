@@ -18,13 +18,15 @@ import clsx from "clsx";
 import MultipleChoice from "@/components/question/multipleChoice";
 
 /**
- * TODO: ページ課題
- * StageLayoutとして、切り出し取得データによって形を変えるようにする
- * 共通部分は、問題提出部分とフッターの解答&補足部分
- * APIが出来たらFetch処理に変更する
- * Drawer部分をコンポーネント化する、解説テキストとDB部分を受け取れるようにする
- * 回答部分のコンポーネントを作成する
- * questionに解答コンポーネントはどれを使うかcodeを渡す
+ * TODO:
+ * 1. StageLayoutとして、切り出し取得データによって形を変えるようにする
+ * 2. 共通部分は、問題提出部分とフッターの解答&補足部分
+ * 3. APIが出来たらFetch処理に変更する
+ * 4. Drawer部分をコンポーネント化する
+ * 5. 解説テキストとDB部分を受け取れるようにする
+ * 6. 回答部分のコンポーネントを作成する
+ * 7. questionに解答コンポーネントはどれを使うかcodeを渡す
+ * 8. drawer以外のボタンを押すとdrawerが閉じるバグの修正
  */
 const StagePage = ({ params }: { params: { id: string } }) => {
   const [snap, setSnap] = useState<number | string | null>("148px");

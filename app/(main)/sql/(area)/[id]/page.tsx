@@ -6,12 +6,12 @@ import { stages as stageData } from "@/data/stages";
 import Kanban from "@/components/ui/kanban";
 
 /**
- * TODO: ページ課題
- * area毎にコンポーネント区切れるように修正する (questで絞る)
- * stageの取得方法も検討する (area_idで絞る)
- * stage選択演出を用意する
- * stageの表現が物足りない
- * areaDataにオブジェクト画像をもたせる
+ * TODO:
+ * 1. area毎にコンポーネント区切れるように修正する (questで絞る)
+ * 2. stageの取得方法も検討する (area_idで絞る)
+ * 3. stage選択演出を用意する
+ * 4. stageの表現が物足りない
+ * 5. areaDataにオブジェクト画像をもたせる
  */
 const SQLPage = ({ params }: { params: { id: string } }) => {
   // TODO: APIが出来たらFetch処理に変更する

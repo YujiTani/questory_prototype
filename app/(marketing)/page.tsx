@@ -12,6 +12,11 @@ import {
 import { Loader } from "lucide-react";
 import Link from "next/link";
 
+/**
+ * TODO:
+ * 1. テキストをすべてもっと刺さるものに変更する
+ * 2. 認証機能が運用環境で動いていないバグの修正
+ */
 export default function Home() {
   return (
     <div>
