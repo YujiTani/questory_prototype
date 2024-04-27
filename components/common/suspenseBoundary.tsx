@@ -16,7 +16,9 @@ type SuspenseBoundaryProps = {
 function SuspenseBoundary({
   children,
   errorFallback,
-  suspenseFallback = <Loader />,
+  suspenseFallback = (
+    <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+  ),
 }: SuspenseBoundaryProps) {
   return (
     <ErrorBoundary fallback={errorFallback}>

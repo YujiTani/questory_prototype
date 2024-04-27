@@ -9,6 +9,7 @@ import { stages as stageData } from "@/data/stages";
 import { questionsList } from "@/data/questions";
 import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
+import SuspenseBoundary from "@/components/common/suspenseBoundary";
 
 export const runtime = "edge";
 
@@ -61,17 +62,21 @@ const StagePage = () => {
   return (
     <>
       <div className="scroll-smooth">
-        <QuestionInfo
-          target={
-            stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
-          }
-          title={state.currentQuestion?.question ?? ""}
-          index={state.questCount}
-          count={state.totalCount}
-        />
+        <SuspenseBoundary>
+          <QuestionInfo
+            target={
+              stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+            }
+            title={state.currentQuestion?.question ?? ""}
+            index={state.questCount}
+            count={state.totalCount}
+          />
+        </SuspenseBoundary>
         <main className="mt-14">
           {state.currentQuestion?.type === "select" ? (
-            <MultipleChoice answers={answers} />
+            <SuspenseBoundary>
+              <MultipleChoice answers={answers} />
+            </SuspenseBoundary>
           ) : (
             <div className="text-center">
               <p>Coming Soon</p>
@@ -79,7 +84,9 @@ const StagePage = () => {
             </div>
           )}
         </main>
-        <QuestionDrawer snap={state.snap} isOpen={state.isOpen} />
+        <SuspenseBoundary>
+          <QuestionDrawer snap={state.snap} isOpen={state.isOpen} />
+        </SuspenseBoundary>
       </div>
     </>
   );
