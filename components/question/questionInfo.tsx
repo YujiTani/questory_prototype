@@ -16,7 +16,7 @@ const QuestionInfo = ({ target, title, index, count }: Props) => {
       <Separator orientation="horizontal" />
       <div className="flex justify-end">
         <span className="text-xs">
-          {index + 1} / {count}
+          {index} / {count}
         </span>
       </div>
     </div>
