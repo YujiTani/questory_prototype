@@ -20,7 +20,7 @@ export const runtime = "edge";
  * 4. questionに解答コンポーネントはどれを使うかcodeを渡す
  * 5. データ型を整えながら、１問目のデータ取得、表示処理を作る
  * 6. reducerの処理を理解する
- * 7. answerの作り方が強引なのでなにか方法を考える
+ * 7. answerの作る部分を関数に切り出す
  */
 const StagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
@@ -47,7 +47,7 @@ const StagePage = () => {
     }
   }, []);
 
-  // answer, falseAnswers
+  // 表示するanswerを作成
   const answer = state.currentQuestion?.answer ?? "";
   const falseAnswers =
     state.currentQuestion?.type === "sorting"
