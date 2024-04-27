@@ -1,6 +1,7 @@
 export const runtime = "edge";
 
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   SignedIn,
   SignedOut,
@@ -24,7 +25,7 @@ export default function Home() {
         Hello!!
       </p>
       <ClerkLoading>
-        <Loader className="m-auto h-5 w-5 text-muted-foreground animate-spin" />
+        <Skeleton className="w-full h-[40px] bg-gray-200" />
       </ClerkLoading>
       <ClerkLoaded>
         <SignedOut>
