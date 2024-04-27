@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { MobileHeader } from "@/components/ui/mobileHeader";
 import Sidebar from "@/components/ui/sidebar";
 

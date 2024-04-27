@@ -1,6 +1,3 @@
-// MEMO: useStateが呼び出せないため、クライアントで動かすように変更
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {

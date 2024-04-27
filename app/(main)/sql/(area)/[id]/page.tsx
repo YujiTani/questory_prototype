@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import StageList from "@/components/ui/stageList";
 import { areas as areaData } from "@/data/areas";
 import { stages as stageData } from "@/data/stages";

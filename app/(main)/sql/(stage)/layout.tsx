@@ -1,3 +1,6 @@
+// MEMO: useStateが呼び出せないため、クライアントで動かすように変更
+"use client";
+
 import { StageHeader } from "@/components/ui/stageHeader";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
