@@ -14,8 +14,11 @@ import {
 import { useState } from "react";
 import clsx from "clsx";
 import MultipleChoice from "@/components/question/multipleChoice";
+// use clientを使用しても、deployでエラーがでるため、errorBoundaryを使用
 import * as Sentry from "@sentry/react";
 import { ClerkLoading } from "@clerk/nextjs";
+
+export const runtime = "edge";
 
 /**
  * TODO:
