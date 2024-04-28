@@ -25,6 +25,10 @@ const buttonVariants = cva(
         superOutline: "border-slate-200 text-indigo-500 hover:bg-indigo-100",
         ghost:
           "bg-transparent border-2 border-transparent hover:bg-transparent hover:border-slate-200 text-slate-500",
+        success:
+          "bg-green-500 text-primary-foreground hover:bg-green-500/60 border-green-600 border-b-[6px] active:border-b-0",
+        failure:
+          "bg-red-500 text-primary-foreground hover:bg-red-500/60 border-red-600 border-b-[6px] active:border-b-0",
       },
       size: {
         default: "h-11 px-4 py-2",

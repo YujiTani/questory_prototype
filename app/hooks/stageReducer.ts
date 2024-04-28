@@ -7,7 +7,7 @@ export interface State {
   totalCount: number;
   currentQuestion: selectQuestion | sortingQuestion | null;
   selectedAnswer: string | null;
-  isCorrect: boolean | null;
+  isCorrect: boolean;
 }
 
 export type Action =
@@ -26,7 +26,7 @@ export const initialState: State = {
   totalCount: 0,
   currentQuestion: null,
   selectedAnswer: null,
-  isCorrect: null,
+  isCorrect: false,
 };
 
 export function reducer(state: State, action: Action): State {
@@ -47,7 +47,7 @@ export function reducer(state: State, action: Action): State {
     case 'SET_CORRECT_ANSWER':
       console.log("setCorrectAnswer");
       const isCorrect = state.currentQuestion && state.selectedAnswer === state.currentQuestion.answer;
-      return { ...state, isCorrect: isCorrect };
+      return { ...state, isCorrect: isCorrect ? true : false };
     default:
       return state;
   }

@@ -29,7 +29,7 @@ const StagePage = () => {
  * 4. questionに解答コンポーネントはどれを使うかcodeを渡す
  * 6. reducerの処理を理解する
  * 7. answerの作る部分を関数に切り出す
- * 8. 解答結果で画面全体のstyleを変更する処理を追加
+ * 8. 解答部分の処理を作成する
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
@@ -103,6 +103,7 @@ const InnerStagePage = () => {
           handleSubmit={(payload) =>
             dispatch({ type: "SET_CORRECT_ANSWER", payload })
           }
+          isCorrect={state.isCorrect}
         />
       </div>
     </>
