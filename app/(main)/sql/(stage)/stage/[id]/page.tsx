@@ -80,14 +80,27 @@ const InnerStagePage = () => {
   // TODO: 問題タイプが増えた場合、ユニオン型にする
   const isSelectType = state.currentQuestion?.type === "select";
 
+  const handleSelectedAnswer = (answer: string) => {
+    dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
+    dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
+  };
+
+  const handleSubmit = (payload: boolean) => {
+    // TODO: SEのON／OFF切り替えはユーザーができるようにする
+    const sound = payload ? "success2" : "failure2";
+    const audio = new Audio(`/se/${sound}.mp3`);
+    audio.play();
+
+    dispatch({ type: "CORRECT_ANSWER", payload });
+    dispatch({ type: "SET_STAGE_STATE", payload: "result" });
+  };
+
   // 解答で使用するコンポーネントを取得
   // TODO: 数が増えた場合、別ファイルに切り出す
   const AnserField = isSelectType ? (
     <MultipleChoice
       answers={answers}
-      handleClick={(answer) =>
-        dispatch({ type: "SET_SELECTED_ANSWER", payload: answer })
-      }
+      handleClick={handleSelectedAnswer}
       selectedAnswer={state.selectedAnswer}
     />
   ) : (
@@ -101,6 +114,7 @@ const InnerStagePage = () => {
     <>
       <div className="scroll-smooth">
         <QuestionInfo
+          question={state.currentQuestion}
           target={
             stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
           }
@@ -112,8 +126,11 @@ const InnerStagePage = () => {
           {state.currentQuestion ? (
             AnserField
           ) : (
-            <div className="text-center">
-              <Skeleton className="w-[full] h-[300px] bg-gray-200" />
+            <div className="mt-14 flex flex-col gap-4">
+              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
             </div>
           )}
         </main>
@@ -123,9 +140,7 @@ const InnerStagePage = () => {
           isOpen={state.isOpen}
           answer={state.currentQuestion?.answer}
           selectedAnswer={state.selectedAnswer}
-          handleSubmit={(payload) =>
-            dispatch({ type: "CORRECT_ANSWER", payload })
-          }
+          handleSubmit={handleSubmit}
           isCorrect={state.isCorrect}
         />
       </div>

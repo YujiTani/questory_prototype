@@ -6,8 +6,10 @@ export interface State {
   questCount: number;
   totalCount: number;
   currentQuestion: selectQuestion | sortingQuestion | null;
+  stageState: "prepare" | "selected" | "result";
   selectedAnswer: string | null;
   isCorrect: boolean;
+  isError: string | null;
 }
 
 export type Action =
@@ -15,9 +17,11 @@ export type Action =
   | { type: 'TOGGLE_OPEN' }
   | { type: 'SET_QUEST_COUNT'; payload: number }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_CURRENT_QUESTION'; payload: selectQuestion | sortingQuestion }
+  | { type: 'SET_QUESTION'; payload: selectQuestion | sortingQuestion }
+  | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
-  | { type: 'SET_CORRECT_ANSWER'; payload: boolean };
+  | { type: 'CORRECT_ANSWER'; payload: boolean }
+  | { type: 'SET_ERROR'; payload: string | null };
 
 export const initialState: State = {
   snap: "148px",
@@ -25,8 +29,10 @@ export const initialState: State = {
   questCount: 1,
   totalCount: 0,
   currentQuestion: null,
+  stageState: "prepare",
   selectedAnswer: null,
   isCorrect: false,
+  isError: null,
 };
 
 export function reducer(state: State, action: Action): State {
@@ -39,15 +45,16 @@ export function reducer(state: State, action: Action): State {
       return { ...state, questCount: action.payload };
     case 'SET_TOTAL_COUNT':
       return { ...state, totalCount: action.payload };
-    case 'SET_CURRENT_QUESTION':
-      return { ...state, currentQuestion: action.payload };
+    case 'SET_QUESTION':
+      return{ ...state, currentQuestion: action.payload };
+    case 'SET_STAGE_STATE':
+      return { ...state, stageState: action.payload };
     case 'SET_SELECTED_ANSWER':
       return { ...state, selectedAnswer: action.payload };
-    // answerとselectedAnswerが一致しているか判定
-    case 'SET_CORRECT_ANSWER':
-      console.log("setCorrectAnswer");
-      const isCorrect = state.currentQuestion && state.selectedAnswer === state.currentQuestion.answer;
-      return { ...state, isCorrect: isCorrect ? true : false };
+    case 'CORRECT_ANSWER':
+      return { ...state, isCorrect: action.payload };
+    case 'SET_ERROR':
+      return { ...state, isError: action.payload };
     default:
       return state;
   }
