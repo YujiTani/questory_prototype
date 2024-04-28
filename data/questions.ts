@@ -8,6 +8,7 @@ export type selectQuestion = {
   explanation: string;
   stage_id: number;
   type: "select";
+  failure: number;
 };
 
 export type sortingQuestion = {
@@ -17,6 +18,7 @@ export type sortingQuestion = {
   explanation: string;
   stage_id: number;
   type: "sorting";
+  failure: number;
 };
 
 const selectQuestions = [
@@ -28,6 +30,7 @@ const selectQuestions = [
     explanation: "データベースのテーブルにおいて、行はレコードと呼ばれます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 2,
@@ -37,6 +40,7 @@ const selectQuestions = [
     explanation: "データベースのテーブルにおいて、列はカラムと呼ばれます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 3,
@@ -46,6 +50,7 @@ const selectQuestions = [
     explanation: "SELECT文はデータを取得するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 4,
@@ -55,6 +60,7 @@ const selectQuestions = [
     explanation: "INSERT文は新しいデータをテーブルに追加するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 5,
@@ -64,6 +70,7 @@ const selectQuestions = [
     explanation: "UPDATE文は既存のデータを変更するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 6,
@@ -73,6 +80,7 @@ const selectQuestions = [
     explanation: "DELETE文は既存のデータを削除するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 7,
@@ -82,6 +90,7 @@ const selectQuestions = [
     explanation: "COUNT() 関数は、指定した列の行数を返します。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 8,
@@ -91,6 +100,7 @@ const selectQuestions = [
     explanation: "FOREIGN KEYは他のテーブルのカラムを参照し、テーブル間の関係を定義するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 9,
@@ -100,6 +110,7 @@ const selectQuestions = [
     explanation: "UNIQUE制約はカラムの各行で値が一意であることを保証します。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 10,
@@ -109,6 +120,7 @@ const selectQuestions = [
     explanation: "DISTINCTキーワードは重複するデータを除外して結果を返します。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 11,
@@ -118,6 +130,7 @@ const selectQuestions = [
     explanation: "JOIN文は複数のテーブルから関連するデータを結合して取得するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 12,
@@ -127,6 +140,7 @@ const selectQuestions = [
     explanation: "INSERT INTO文はデータベースのテーブルに新しい行を追加するために使用されます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 13,
@@ -140,6 +154,7 @@ const selectQuestions = [
     explanation: "IDを使って取得する場合、idが一致するものを取得することが出来ます",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 14,
@@ -153,6 +168,7 @@ const selectQuestions = [
     explanation: "ORDER BY カラム名 ASC; は指定したカラムを基に昇順でデータを並べ替えます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
   {
     id: 15,
@@ -166,6 +182,7 @@ const selectQuestions = [
     explanation: "WHERE句を使って条件を指定することで、特定のデータを絞り込んで取得することができます。",
     stage_id: 1,
     type: "select",
+    failure: 0,
   },
 ] as const satisfies selectQuestion[]
 
@@ -175,106 +192,136 @@ const sortingQuestions = [
       id: 1,
       question: "IDが1のユーザーの名前を取得する",
       answer: "SELECT name FROM users WHERE id = 1;",
+      explanation: "解説はまだありません",
       stage_id: 2,
       type: "sorting",
+      failure: 0,
   },
   {
     id: 2,
     question: "IDが3のユーザーの年齢を取得する",
     answer: "SELECT age FROM users WHERE id = 3;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 3,
     question: "IDが1のユーザーの登録日を取得する",
     answer: "SELECT created_at FROM users WHERE id = 1;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 4,
     question: "IDが1のユーザーの名前と年齢と登録日を取得する",
     answer: "SELECT name, age, created_at FROM users WHERE id = 1;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 5,
     question: "全ユーザーの名前を取得する",
     answer: "SELECT name FROM users;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 6,
     question: "全ユーザーの全ての情報を取得する",
     answer: "SELECT * FROM users;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 7,
     question: "名前が登録されていないユーザーを全員を取得する",
     answer: "SELECT * FROM users WHERE name IS NULL;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 8,
     question: "名前が登録されているユーザー全員を取得する",
     answer: "SELECT * FROM users WHERE name IS NOT NULL;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 9,
     question: "年齢が登録されていないユーザー全員の名前を取得する",
     answer: "SELECT name FROM users WHERE age IS NULL;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 10,
     question: "名前と年齢が登録されているユーザー全員の名前を取得する",
     answer: "SELECT name FROM users WHERE name IS NOT NULL AND age IS NOT NULL;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 11,
     question: "ユーザーの総数を取得する",
     answer: "SELECT COUNT(*) FROM users;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 12,
     question: "最も古い登録日のユーザーの名前を取得する",
+    explanation: "解説はまだありません",
     answer: "SELECT name FROM users ORDER BY created_at ASC LIMIT 1;",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 13,
     question: "年齢が20歳以上30歳以下のユーザーの名前を取得する",
     answer: "SELECT name FROM users WHERE age BETWEEN 20 AND 30;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 14,
     question: "最後に登録された3人のユーザーの名前を取得する",
     answer: "SELECT name FROM users ORDER BY created_at DESC LIMIT 3;",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   },
   {
     id: 15,
     question: "名前が'A'で始まるユーザーの全情報を取得する",
     answer: "SELECT * FROM users WHERE name LIKE 'A%';",
+    explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
+    failure: 0,
   }
 ] as const satisfies sortingQuestion[]
 
