@@ -14,6 +14,7 @@ export type sortingQuestion = {
   id: number;
   question: string;
   answer: string;
+  explanation: string;
   stage_id: number;
   type: "sorting";
 };

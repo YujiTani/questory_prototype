@@ -12,6 +12,7 @@ import clsx from "clsx";
 import { Button } from "@/components/common/button";
 import { useEffect, useState } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
+import { selectQuestion, sortingQuestion } from "@/data/questions";
 
 export const runtime = "edge";
 
@@ -19,7 +20,7 @@ type Props = {
   snap: number | string | null;
   setSnap: (snap: number | string | null) => void;
   isOpen: boolean;
-  answer: string | undefined;
+  question: selectQuestion | sortingQuestion | null;
   selectedAnswer: string | null;
   handleSubmit: (payload: boolean) => void;
   isCorrect: boolean;
@@ -30,7 +31,7 @@ const QuestionDrawer = ({
   snap,
   setSnap,
   isOpen,
-  answer,
+  question,
   selectedAnswer,
   handleSubmit,
   isCorrect,
@@ -97,16 +98,20 @@ const QuestionDrawer = ({
                 variant={
                   isResult ? (isCorrect ? "success" : "failure") : "default"
                 }
-                onClick={() => handleSubmit(selectedAnswer === answer)}
+                onClick={() =>
+                  handleSubmit(selectedAnswer === question?.answer)
+                }
               >
                 {submitText}
               </Button>
             </DrawerHeader>
             <DrawerFooter>
-              <p className="p-4 mt-10 border-blue-600 rounded-md">
-                ここには、テキストがはいるよ。ここには、テキストがはいるよ。ここには、テキストがはいるよ。ここには、テキストがはいるよ。ここには、テキストがはいるよ。ここには、テキストがはいるよ。ここには、テキストがはいるよ。
-              </p>
-              <table className="mt-10 min-w-full border-blue-600 rounded-md divide-y divide-gray-200">
+              {isResult ? (
+                <p className="p-4 mt-6 tracking-wide text-pretty">
+                  {question?.explanation}
+                </p>
+              ) : null}
+              <table className="mt-6 min-w-full rounded-md divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th

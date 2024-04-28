@@ -138,7 +138,7 @@ const InnerStagePage = () => {
           snap={state.snap}
           setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
           isOpen={state.isOpen}
-          answer={state.currentQuestion?.answer}
+          question={state.currentQuestion}
           selectedAnswer={state.selectedAnswer}
           handleSubmit={handleSubmit}
           isCorrect={state.isCorrect}
