@@ -76,18 +76,20 @@ const QuestionDrawer = ({
               "overflow-hidden": snap !== 1,
             })}
           >
-            <div className="mt-2 pl-4">
+            <div className="mt-2 px-4">
               {isResult ? (
                 isCorrect ? (
                   <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
-                    <p className="text-green-800">
-                      ◯<span className="ml-4">正解</span>
+                    <p className="flex justify-between text-green-800">
+                      <span className="ml-4">◯ 正解</span>
+                      <small className="text-xs">解説も確認</small>
                     </p>
                   </DrawerTitle>
                 ) : (
                   <DrawerTitle className="animate-slideIn w-full h-full text-red-700 font-bold">
-                    <p className="text-red-800">
-                      ✕<span className="ml-4">不正解</span>
+                    <p className="flex justify-between text-red-800">
+                      <span className="ml-4">✕ 不正解</span>
+                      <small className="text-xs">解説も確認</small>
                     </p>
                   </DrawerTitle>
                 )
