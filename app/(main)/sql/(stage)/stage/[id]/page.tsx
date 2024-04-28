@@ -38,26 +38,58 @@ const InnerStagePage = () => {
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
 
-  useEffect(() => {
-    if (stageId) {
-      fetchQuestions();
-    }
-  }, [stageId]);
+  // 初期化
+  const init = () => {
+    dispatch({ type: "SET_TOTAL_COUNT", payload: 0 });
+    dispatch({ type: "SET_QUESTION_COUNT", payload: 1 });
+    dispatch({ type: "SET_QUESTION", payload: null });
 
-  const fetchQuestions = () => {
     const questions = questionsList.find(
       ({ id }) => id === Number(stageId)
     )?.questions;
-    if (questions) {
-      dispatch({ type: "SET_TOTAL_COUNT", payload: questions.length });
-      const currentQuestion = questions.find(
-        ({ id }) => id === state.questCount
-      );
-      if (currentQuestion) {
-        dispatch({ type: "SET_QUESTION", payload: currentQuestion });
-      }
+
+    if (!questions) {
+      dispatch({ type: "SET_ERROR", payload: "No questions found" });
+      return;
     }
+
+    dispatch({ type: "SET_QUESTIONS", payload: questions });
+    dispatch({
+      type: "SET_TOTAL_COUNT",
+      payload: state.questions?.length ?? 0,
+    });
+    dispatch({ type: "SET_QUESTION", payload: questions[0] });
   };
+
+  // 設定をリセット
+  const reset = () => {
+    // クエストカウントと現在のクエストの初期化は、マウント時のみ行う
+    dispatch({ type: "SET_SNAP", payload: "148px" });
+    dispatch({ type: "SET_STAGE_STATE", payload: "prepare" });
+    dispatch({ type: "SET_SELECTED_ANSWER", payload: "" });
+    dispatch({ type: "CORRECT_ANSWER", payload: false });
+    dispatch({ type: "SET_ERROR", payload: null });
+  };
+
+  // 新しい問題をセット
+  const setQuestions = () => {
+    if (state.currentQuestion === null && state.totalCount === 0) {
+      init();
+    }
+
+    reset();
+
+    dispatch({
+      type: "SET_QUESTION",
+      payload: state.questions![state.questionCount],
+    });
+  };
+
+  useEffect(() => {
+    if (stageId) {
+      setQuestions();
+    }
+  }, [stageId]);
 
   const answers = useMemo(() => {
     const answer = state.currentQuestion?.answer ?? "";
@@ -86,13 +118,17 @@ const InnerStagePage = () => {
   };
 
   const handleSubmit = (payload: boolean) => {
+    dispatch({ type: "CORRECT_ANSWER", payload });
+    dispatch({ type: "SET_STAGE_STATE", payload: "result" });
     // TODO: SEのON／OFF切り替えはユーザーができるようにする
     const sound = payload ? "success2" : "failure2";
     const audio = new Audio(`/se/${sound}.mp3`);
     audio.play();
 
-    dispatch({ type: "CORRECT_ANSWER", payload });
-    dispatch({ type: "SET_STAGE_STATE", payload: "result" });
+    // 間違えている場合、追加処理
+    if (!state.isCorrect) {
+      // status.currentQuestionを配列にpush
+    }
   };
 
   // 解答で使用するコンポーネントを取得
@@ -119,7 +155,7 @@ const InnerStagePage = () => {
             stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
           }
           title={state.currentQuestion?.question ?? ""}
-          index={state.questCount}
+          index={state.questionCount}
           count={state.totalCount}
         />
         <main className="mt-14">

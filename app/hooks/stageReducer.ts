@@ -5,8 +5,9 @@ export type StageState = "prepare" | "selected" | "result";
 export interface State {
   snap: number | string | null;
   isOpen: boolean;
-  questCount: number;
+  questionCount: number;
   totalCount: number;
+  questions: (selectQuestion | sortingQuestion)[] | null;
   currentQuestion: selectQuestion | sortingQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
@@ -17,9 +18,10 @@ export interface State {
 export type Action =
   | { type: 'SET_SNAP'; payload: number | string | null }
   | { type: 'TOGGLE_OPEN' }
-  | { type: 'SET_QUEST_COUNT'; payload: number }
+  | { type: 'SET_QUESTION_COUNT'; payload: number }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_QUESTION'; payload: selectQuestion | sortingQuestion }
+  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | sortingQuestion)[] | null }
+  | { type: 'SET_QUESTION'; payload: selectQuestion | sortingQuestion | null }
   | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
   | { type: 'CORRECT_ANSWER'; payload: boolean }
@@ -28,8 +30,9 @@ export type Action =
 export const initialState: State = {
   snap: "148px",
   isOpen: true,
-  questCount: 1,
+  questionCount: 1,
   totalCount: 0,
+  questions: null,
   currentQuestion: null,
   stageState: "prepare",
   selectedAnswer: null,
@@ -43,10 +46,12 @@ export function reducer(state: State, action: Action): State {
       return { ...state, snap: action.payload };
     case 'TOGGLE_OPEN':
       return { ...state, isOpen: !state.isOpen };
-    case 'SET_QUEST_COUNT':
-      return { ...state, questCount: action.payload };
+    case 'SET_QUESTION_COUNT':
+      return { ...state, questionCount: action.payload };
     case 'SET_TOTAL_COUNT':
       return { ...state, totalCount: action.payload };
+    case 'SET_QUESTIONS':
+      return { ...state, questions: action.payload };
     case 'SET_QUESTION':
       return{ ...state, currentQuestion: action.payload };
     case 'SET_STAGE_STATE':
