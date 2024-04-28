@@ -1,5 +1,3 @@
-import { questions } from "./questions"
-
 /**
  * synonyms: 解答の他の選択肢として選ばれる類語, 最大3つ
  * question_id: 紐づく問題
@@ -314,72 +312,3 @@ const words6 = [
 ] as const satisfies Word[]
 
 export const wordsList = [words1, words2, words3, words4, words5, words6]
-
-
-// const questions = [
-//   {
-//       id: 1,
-//       question: "IDが1のユーザーの名前を取得する",
-//       answer: "SELECT name FROM users WHERE id = 1;",
-//       stage_id: 1,
-//   },
-//   {
-//     id: 2,
-//     question: "IDが3のユーザーの年齢を取得する",
-//     answer: "SELECT age FROM users WHERE id = 3;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 3,
-//     question: "IDが1のユーザーの登録日を取得する",
-//     answer: "SELECT created_at FROM users WHERE id = 1;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 4,
-//     question: "IDが1のユーザーの名前と年齢と登録日を取得する",
-//     answer: "SELECT name, age, created_at FROM users WHERE id = 1;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 5,
-//     question: "全ユーザーの名前を取得する",
-//     answer: "SELECT name FROM users;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 6,
-//     question: "全ユーザーの全ての情報を取得する",
-//     answer: "SELECT * FROM users;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 7,
-//     question: "名前が登録されていないユーザーを全員を取得する",
-//     answer: "SELECT * FROM users WHERE name IS NULL;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 8,
-//     question: "名前が登録されているユーザー全員を取得する",
-//     answer: "SELECT * FROM users WHERE name IS NOT NULL;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 9,
-//     question: "年齢が登録されていないユーザー全員の名前を取得する",
-//     answer: "SELECT name FROM users WHERE age IS NULL;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 10,
-//     question: "名前と年齢が登録されているユーザー全員の名前を取得する",
-//     answer: "SELECT name FROM users WHERE name IS NOT NULL AND age IS NOT NULL;",
-//     stage_id: 1,
-//   },
-//   {
-//     id: 11,
-//     question: "ユーザーの総数を取得する",
-//     answer: "SELECT COUNT(*) FROM users;",
-//     stage_id: 1,
-//   },
