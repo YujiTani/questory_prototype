@@ -25,11 +25,11 @@ const StagePage = () => {
  * TODO:
  * 1. APIが出来たらFetch処理に変更する
  * 2. 解説テキストとDB部分を受け取れるようにする
- * 3. 回答部分のコンポーネントを作成する(sort型を作成する)
+ * 3. 回答部分のコンポーネントを作成する(あとはsort型を作成する)
  * 4. questionに解答コンポーネントはどれを使うかcodeを渡す
- * 5. データ型を整えながら、１問目のデータ取得、表示処理を作る
  * 6. reducerの処理を理解する
  * 7. answerの作る部分を関数に切り出す
+ * 8. 解答結果で画面全体のstyleを変更する処理を追加
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
