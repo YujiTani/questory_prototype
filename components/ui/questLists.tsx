@@ -25,7 +25,7 @@ const QuestLists = ({ quests }: Props) => {
             <QuestCard>
               <Image
                 className="rounded border-2 border-slate-200 p-1"
-                src={quest.image || "/NotData.svg"}
+                src={quest.image || "/image/NotData.svg"}
                 alt={`${quest.name}のicon`}
                 width={110}
                 height={70}

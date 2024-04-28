@@ -7,7 +7,6 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { Loader } from "lucide-react";
 import Image from "next/image";
 
 export const Header = () => {
@@ -16,7 +15,7 @@ export const Header = () => {
       <div className="lg:max-w-screen-lg pt-5 px-4 pb-4 mx-auto flex items-center justify-between h-full">
         <div className="flex items-center gap-3">
           <Image
-            src="/icon_yuzu.svg"
+            src="/image/icon_yuzu.svg"
             alt="app_logo"
             width="0"
             height="0"

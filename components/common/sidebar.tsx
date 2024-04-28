@@ -36,7 +36,7 @@ const Sidebar = ({ className }: Props) => {
       <div className="mt-10 h-full flex flex-col gap-5 justify-between">
         <SidebarItem
           href="/quests"
-          iconSrc="/icon_Destination.svg"
+          iconSrc="/image/icon_Destination.svg"
           label="Quests"
           className="w-[230px] m-auto"
         />

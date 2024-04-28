@@ -14,7 +14,7 @@ export const areas = [
     name: "草原",
     description: "最初は簡単なSQLから練習しよう",
     quest_id: 1,
-    image_url: "/area/grass_a.svg",
+    image_url: "/image/area/grass_a.svg",
   },
   {
     id: 2,
@@ -22,6 +22,6 @@ export const areas = [
     name: "森林",
     description: "少しずつSQLに慣れてきたかな？毎日すこしでも練習しよう",
     quest_id: 1,
-    image_url: "/area/wood_a.svg",
+    image_url: "/image/area/wood_a.svg",
   },
 ] as const satisfies Area[];
