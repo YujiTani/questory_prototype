@@ -98,6 +98,11 @@ const InnerStagePage = () => {
           snap={state.snap}
           setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
           isOpen={state.isOpen}
+          answer={state.currentQuestion?.answer}
+          selectedAnswer={state.selectedAnswer}
+          handleSubmit={(payload) =>
+            dispatch({ type: "SET_CORRECT_ANSWER", payload })
+          }
         />
       </div>
     </>

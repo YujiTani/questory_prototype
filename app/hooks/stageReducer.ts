@@ -7,6 +7,7 @@ export interface State {
   totalCount: number;
   currentQuestion: selectQuestion | sortingQuestion | null;
   selectedAnswer: string | null;
+  isCorrect: boolean | null;
 }
 
 export type Action =
@@ -15,7 +16,8 @@ export type Action =
   | { type: 'SET_QUEST_COUNT'; payload: number }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
   | { type: 'SET_CURRENT_QUESTION'; payload: selectQuestion | sortingQuestion }
-  | { type: 'SET_SELECTED_ANSWER'; payload: string };
+  | { type: 'SET_SELECTED_ANSWER'; payload: string }
+  | { type: 'SET_CORRECT_ANSWER'; payload: boolean };
 
 export const initialState: State = {
   snap: "148px",
@@ -24,6 +26,7 @@ export const initialState: State = {
   totalCount: 0,
   currentQuestion: null,
   selectedAnswer: null,
+  isCorrect: null,
 };
 
 export function reducer(state: State, action: Action): State {
@@ -40,6 +43,11 @@ export function reducer(state: State, action: Action): State {
       return { ...state, currentQuestion: action.payload };
     case 'SET_SELECTED_ANSWER':
       return { ...state, selectedAnswer: action.payload };
+    // answerとselectedAnswerが一致しているか判定
+    case 'SET_CORRECT_ANSWER':
+      console.log("setCorrectAnswer");
+      const isCorrect = state.currentQuestion && state.selectedAnswer === state.currentQuestion.answer;
+      return { ...state, isCorrect: isCorrect };
     default:
       return state;
   }

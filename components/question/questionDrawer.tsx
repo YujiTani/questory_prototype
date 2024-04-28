@@ -12,9 +12,19 @@ type Props = {
   snap: number | string | null;
   setSnap: (snap: number | string | null) => void;
   isOpen: boolean;
+  answer: string | undefined;
+  selectedAnswer: string | null;
+  handleSubmit: (payload: boolean) => void;
 };
 
-const QuestionDrawer = ({ snap, setSnap, isOpen }: Props) => {
+const QuestionDrawer = ({
+  snap,
+  setSnap,
+  isOpen,
+  answer,
+  selectedAnswer,
+  handleSubmit,
+}: Props) => {
   return (
     <Drawer
       open={isOpen}
@@ -34,7 +44,12 @@ const QuestionDrawer = ({ snap, setSnap, isOpen }: Props) => {
             })}
           >
             <DrawerHeader className="p-2">
-              <Button variant="primary">Submit</Button>
+              <Button
+                variant="primary"
+                onClick={() => handleSubmit(selectedAnswer === answer)}
+              >
+                Submit
+              </Button>
             </DrawerHeader>
             <DrawerFooter>
               <p className="p-4 mt-10 border-blue-600 rounded-md">
