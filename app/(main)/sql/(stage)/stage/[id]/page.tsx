@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useMemo } from "react";
 import { useParams } from "next/navigation";
 import MultipleChoice from "@/components/question/multipleChoice";
 import QuestionDrawer from "@/components/question/questionDrawer";
@@ -10,6 +10,7 @@ import { questionsList } from "@/data/questions";
 import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
+import { Skeleton } from "@/components/common/skeleton";
 
 export const runtime = "edge";
 
@@ -34,38 +35,67 @@ const StagePage = () => {
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
+  // 画面切り替え時に、確認を行う
+  usePageTransitionGuard();
 
   useEffect(() => {
-    if (stageId === undefined) {
-      return;
+    if (stageId) {
+      fetchQuestions();
     }
+  }, [stageId]);
 
+  const fetchQuestions = () => {
     const questions = questionsList.find(
       ({ id }) => id === Number(stageId)
     )?.questions;
-    if (questions === undefined) {
-      return;
+    if (questions) {
+      dispatch({ type: "SET_TOTAL_COUNT", payload: questions.length });
+      const currentQuestion = questions.find(
+        ({ id }) => id === state.questCount
+      );
+      if (currentQuestion) {
+        dispatch({ type: "SET_QUESTION", payload: currentQuestion });
+      }
     }
+  };
 
-    dispatch({ type: "SET_TOTAL_COUNT", payload: questions.length });
+  const answers = useMemo(() => {
+    const answer = state.currentQuestion?.answer ?? "";
+    const falseAnswers =
+      state.currentQuestion?.type === "sorting"
+        ? []
+        : state.currentQuestion?.falseAnswers;
+    return [answer, ...(falseAnswers ?? [])];
+  }, [state.currentQuestion]);
 
-    const { questCount } = state;
-    const currentQuestion = questions.find(({ id }) => id === questCount);
-    if (currentQuestion) {
-      dispatch({ type: "SET_CURRENT_QUESTION", payload: currentQuestion });
-    }
-  }, []);
+  // エラーが発生した場合の表示
+  if (state.isError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <p className="text-2xl font-bold">{state.isError}</p>
+      </div>
+    );
+  }
 
-  // 表示するanswerを作成
-  const answer = state.currentQuestion?.answer ?? "";
-  const falseAnswers =
-    state.currentQuestion?.type === "sorting"
-      ? []
-      : state.currentQuestion?.falseAnswers;
+  // TODO: 問題タイプが増えた場合、ユニオン型にする
+  const isSelectType = state.currentQuestion?.type === "select";
 
-  const answers = [answer, ...(falseAnswers ?? [])];
-
-  usePageTransitionGuard();
+  // 解答で使用するコンポーネントを取得
+  // TODO: 数が増えた場合、別ファイルに切り出す
+  const AnserField = isSelectType ? (
+    <MultipleChoice
+      answers={answers}
+      handleClick={(answer) =>
+        dispatch({ type: "SET_SELECTED_ANSWER", payload: answer })
+      }
+      selectedAnswer={state.selectedAnswer}
+    />
+  ) : (
+    <div className="text-center">
+      <h2 className="text-2xl font-bold">Coming Soon</h2>
+      <p>鋭意開発中…🔧</p>
+    </div>
+  );
 
   return (
     <>
@@ -79,18 +109,11 @@ const InnerStagePage = () => {
           count={state.totalCount}
         />
         <main className="mt-14">
-          {state.currentQuestion?.type === "select" ? (
-            <MultipleChoice
-              answers={answers}
-              handleClick={(answer) =>
-                dispatch({ type: "SET_SELECTED_ANSWER", payload: answer })
-              }
-              selectedAnswer={state.selectedAnswer}
-            />
+          {state.currentQuestion ? (
+            AnserField
           ) : (
             <div className="text-center">
-              <h2 className="text-2xl font-bold">Coming Soon</h2>
-              <p>鋭意開発中…🔧</p>
+              <Skeleton className="w-[full] h-[300px] bg-gray-200" />
             </div>
           )}
         </main>
@@ -101,7 +124,7 @@ const InnerStagePage = () => {
           answer={state.currentQuestion?.answer}
           selectedAnswer={state.selectedAnswer}
           handleSubmit={(payload) =>
-            dispatch({ type: "SET_CORRECT_ANSWER", payload })
+            dispatch({ type: "CORRECT_ANSWER", payload })
           }
           isCorrect={state.isCorrect}
         />
