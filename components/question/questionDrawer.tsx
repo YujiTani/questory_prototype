@@ -10,7 +10,8 @@ import {
 } from "@/components/question/drawer";
 import clsx from "clsx";
 import { Button } from "@/components/common/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { StageState } from "@/app/hooks/stageReducer";
 
 export const runtime = "edge";
 
@@ -22,6 +23,7 @@ type Props = {
   selectedAnswer: string | null;
   handleSubmit: (payload: boolean) => void;
   isCorrect: boolean;
+  state: StageState;
 };
 
 const QuestionDrawer = ({
@@ -32,8 +34,20 @@ const QuestionDrawer = ({
   selectedAnswer,
   handleSubmit,
   isCorrect,
+  state,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
+  const isResult = state === "result";
+
+  useEffect(() => {
+    if (isResult && isCorrect) {
+      setSubmitText("Next");
+    } else if (isResult && !isCorrect) {
+      setSubmitText("OK");
+    } else {
+      setSubmitText("submit");
+    }
+  }, [isCorrect, isResult]);
 
   return (
     <Drawer
@@ -50,8 +64,8 @@ const QuestionDrawer = ({
           className={clsx(
             "p-2 fixed flex flex-col bg-white border border-gray-200 border-b-none rounded-t-[20px] bottom-0 left-0 right-0 h-full max-h-[97%] mx-[-1px]",
             {
-              "bg-green-300 border-green-400": selectedAnswer && isCorrect,
-              "bg-red-200 border-red-400": selectedAnswer && !isCorrect,
+              "bg-green-300 border-green-400": isResult && isCorrect,
+              "bg-red-200 border-red-400": isResult && !isCorrect,
             }
           )}
         >
@@ -62,23 +76,27 @@ const QuestionDrawer = ({
             })}
           >
             <div className="mt-2 pl-4">
-              {selectedAnswer ? (
+              {isResult ? (
                 isCorrect ? (
-                  <DrawerTitle className="w-full h-full text-green-700 font-bold">
-                    <span className="text-green-800">◯</span>
-                    <span className="ml-4 text-green-800">正解</span>
+                  <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
+                    <p className="text-green-800">
+                      ◯<span className="ml-4">正解</span>
+                    </p>
                   </DrawerTitle>
                 ) : (
-                  <DrawerTitle className="w-full h-full text-red-700 font-bold">
-                    <span className="text-red-800">✕</span>
-                    <span className="ml-4 text-red-800">不正解</span>
+                  <DrawerTitle className="animate-slideIn w-full h-full text-red-700 font-bold">
+                    <p className="text-red-800">
+                      ✕<span className="ml-4">不正解</span>
+                    </p>
                   </DrawerTitle>
                 )
               ) : null}
             </div>
             <DrawerHeader>
               <Button
-                variant={isCorrect ? "success" : "failure"}
+                variant={
+                  isResult ? (isCorrect ? "success" : "failure") : "default"
+                }
                 onClick={() => handleSubmit(selectedAnswer === answer)}
               >
                 {submitText}

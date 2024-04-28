@@ -142,6 +142,7 @@ const InnerStagePage = () => {
           selectedAnswer={state.selectedAnswer}
           handleSubmit={handleSubmit}
           isCorrect={state.isCorrect}
+          state={state.stageState}
         />
       </div>
     </>

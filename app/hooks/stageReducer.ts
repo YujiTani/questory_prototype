@@ -1,12 +1,14 @@
 import { selectQuestion, sortingQuestion } from "@/data/questions";
 
+export type StageState = "prepare" | "selected" | "result";
+
 export interface State {
   snap: number | string | null;
   isOpen: boolean;
   questCount: number;
   totalCount: number;
   currentQuestion: selectQuestion | sortingQuestion | null;
-  stageState: "prepare" | "selected" | "result";
+  stageState: StageState;
   selectedAnswer: string | null;
   isCorrect: boolean;
   isError: string | null;
