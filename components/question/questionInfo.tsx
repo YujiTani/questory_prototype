@@ -1,9 +1,9 @@
-import { selectQuestion, sortingQuestion } from "@/data/questions";
+import { selectQuestion, sortQuestion } from "@/data/questions";
 import { Separator } from "@radix-ui/react-separator";
 import { Skeleton } from "../common/skeleton";
 
 type Props = {
-  question: selectQuestion | sortingQuestion | null;
+  question: selectQuestion | sortQuestion | null;
   target: string;
   title: string;
   index: number;

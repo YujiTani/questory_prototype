@@ -1,4 +1,4 @@
-import { selectQuestion, sortingQuestion } from "@/data/questions";
+import { selectQuestion, sortQuestion } from "@/data/questions";
 
 export type StageState = "prepare" | "selected" | "result";
 
@@ -7,9 +7,9 @@ export interface State {
   isOpen: boolean;
   questionCount: number;
   totalCount: number;
-  questions: (selectQuestion | sortingQuestion)[];
-  currentQuestion: selectQuestion | sortingQuestion | null;
-  failureQuestion: selectQuestion | sortingQuestion | null;
+  questions: (selectQuestion | sortQuestion)[];
+  currentQuestion: selectQuestion | sortQuestion | null;
+  failureQuestion: selectQuestion | sortQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
   isCorrectAnswer: boolean;
@@ -22,10 +22,10 @@ export type Action =
   | { type: 'SET_QUESTION_COUNT'; payload: number }
   | { type: 'INCREMENT_QUESTION_COUNT' }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | sortingQuestion)[]}
-  | { type: 'ADD_QUESTION'; payload: selectQuestion | sortingQuestion }
-  | { type: 'SET_QUESTION'; payload: selectQuestion | sortingQuestion | null }
-  | { type: 'SET_FAILURE_QUESTION'; payload: selectQuestion | sortingQuestion | null }
+  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | sortQuestion)[]}
+  | { type: 'ADD_QUESTION'; payload: selectQuestion | sortQuestion }
+  | { type: 'SET_QUESTION'; payload: selectQuestion | sortQuestion | null }
+  | { type: 'SET_FAILURE_QUESTION'; payload: selectQuestion | sortQuestion | null }
   | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
   | { type: 'SET_IS_CORRECT_ANSWER'; payload: boolean }

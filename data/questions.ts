@@ -11,7 +11,7 @@ export type selectQuestion = {
   failure: number;
 };
 
-export type sortingQuestion = {
+export type sortQuestion = {
   id: number;
   question: string;
   answer: string;
@@ -187,11 +187,11 @@ const selectQuestions = [
 ] as const satisfies selectQuestion[]
 
 // 選択しながら並べる問題
-const sortingQuestions = [
+const sortQuestions = [
   {
       id: 1,
       question: "IDが1のユーザーの名前を取得する",
-      answer: "SELECT name FROM users WHERE id = 1;",
+      answer: "SELECT name FROM users WHERE id = 1",
       explanation: "解説はまだありません",
       stage_id: 2,
       type: "sorting",
@@ -200,7 +200,7 @@ const sortingQuestions = [
   {
     id: 2,
     question: "IDが3のユーザーの年齢を取得する",
-    answer: "SELECT age FROM users WHERE id = 3;",
+    answer: "SELECT age FROM users WHERE id = 3",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -209,7 +209,7 @@ const sortingQuestions = [
   {
     id: 3,
     question: "IDが1のユーザーの登録日を取得する",
-    answer: "SELECT created_at FROM users WHERE id = 1;",
+    answer: "SELECT created_at FROM users WHERE id = 1",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -218,7 +218,7 @@ const sortingQuestions = [
   {
     id: 4,
     question: "IDが1のユーザーの名前と年齢と登録日を取得する",
-    answer: "SELECT name, age, created_at FROM users WHERE id = 1;",
+    answer: "SELECT name, age, created_at FROM users WHERE id = 1",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -227,7 +227,7 @@ const sortingQuestions = [
   {
     id: 5,
     question: "全ユーザーの名前を取得する",
-    answer: "SELECT name FROM users;",
+    answer: "SELECT name FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -236,7 +236,7 @@ const sortingQuestions = [
   {
     id: 6,
     question: "全ユーザーの全ての情報を取得する",
-    answer: "SELECT * FROM users;",
+    answer: "SELECT * FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -245,7 +245,7 @@ const sortingQuestions = [
   {
     id: 7,
     question: "名前が登録されていないユーザーを全員を取得する",
-    answer: "SELECT * FROM users WHERE name IS NULL;",
+    answer: "SELECT * FROM users WHERE name IS NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -254,7 +254,7 @@ const sortingQuestions = [
   {
     id: 8,
     question: "名前が登録されているユーザー全員を取得する",
-    answer: "SELECT * FROM users WHERE name IS NOT NULL;",
+    answer: "SELECT * FROM users WHERE name IS NOT NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -263,7 +263,7 @@ const sortingQuestions = [
   {
     id: 9,
     question: "年齢が登録されていないユーザー全員の名前を取得する",
-    answer: "SELECT name FROM users WHERE age IS NULL;",
+    answer: "SELECT name FROM users WHERE age IS NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -272,7 +272,7 @@ const sortingQuestions = [
   {
     id: 10,
     question: "名前と年齢が登録されているユーザー全員の名前を取得する",
-    answer: "SELECT name FROM users WHERE name IS NOT NULL AND age IS NOT NULL;",
+    answer: "SELECT name FROM users WHERE name IS NOT NULL AND age IS NOT NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -281,7 +281,7 @@ const sortingQuestions = [
   {
     id: 11,
     question: "ユーザーの総数を取得する",
-    answer: "SELECT COUNT(*) FROM users;",
+    answer: "SELECT COUNT(*) FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -291,7 +291,7 @@ const sortingQuestions = [
     id: 12,
     question: "最も古い登録日のユーザーの名前を取得する",
     explanation: "解説はまだありません",
-    answer: "SELECT name FROM users ORDER BY created_at ASC LIMIT 1;",
+    answer: "SELECT name FROM users ORDER BY created_at ASC LIMIT 1",
     stage_id: 2,
     type: "sorting",
     failure: 0,
@@ -299,7 +299,7 @@ const sortingQuestions = [
   {
     id: 13,
     question: "年齢が20歳以上30歳以下のユーザーの名前を取得する",
-    answer: "SELECT name FROM users WHERE age BETWEEN 20 AND 30;",
+    answer: "SELECT name FROM users WHERE age BETWEEN 20 AND 30",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -308,7 +308,7 @@ const sortingQuestions = [
   {
     id: 14,
     question: "最後に登録された3人のユーザーの名前を取得する",
-    answer: "SELECT name FROM users ORDER BY created_at DESC LIMIT 3;",
+    answer: "SELECT name FROM users ORDER BY created_at DESC LIMIT 3",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
@@ -317,16 +317,16 @@ const sortingQuestions = [
   {
     id: 15,
     question: "名前が'A'で始まるユーザーの全情報を取得する",
-    answer: "SELECT * FROM users WHERE name LIKE 'A%';",
+    answer: "SELECT * FROM users WHERE name LIKE 'A%'",
     explanation: "解説はまだありません",
     stage_id: 2,
     type: "sorting",
     failure: 0,
   }
-] as const satisfies sortingQuestion[]
+] as const satisfies sortQuestion[]
 
 export const questionsList = [
   {id: 1, questions: selectQuestions},
-  {id: 2, questions: sortingQuestions},
+  {id: 2, questions: sortQuestions},
 ]
 

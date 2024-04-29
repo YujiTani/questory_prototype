@@ -94,6 +94,7 @@ const InnerStagePage = () => {
     }
   }, [stageId, state.questionCount, setQuestions]);
 
+  // TODO: 回答作成処理はhooks化する
   const answers = useMemo(() => {
     const answer = state.currentQuestion?.answer ?? "";
     const falseAnswers =
@@ -113,7 +114,7 @@ const InnerStagePage = () => {
   }
 
   // TODO: 問題タイプが増えた場合、ユニオン型にする
-  const isSelectType = state.currentQuestion?.type === "select";
+  const questionType = state.currentQuestion?.type === "select";
 
   const handleSelectedAnswer = (answer: string) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
@@ -153,7 +154,7 @@ const InnerStagePage = () => {
 
   // 解答で使用するコンポーネントを取得
   // TODO: 数が増えた場合、別ファイルに切り出す
-  const AnserField = isSelectType ? (
+  const AnserField = questionType ? (
     <SelectAnswer
       answers={answers}
       handleClick={handleSelectedAnswer}
