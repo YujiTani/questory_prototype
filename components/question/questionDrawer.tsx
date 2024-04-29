@@ -56,6 +56,7 @@ const QuestionDrawer = ({
   const handleCorrect = () => {
     if (isResult && isCorrectAnswer !== null) {
       next();
+      return;
     }
 
     const result = selectedAnswer === question?.answer;
