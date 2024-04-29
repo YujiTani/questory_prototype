@@ -23,8 +23,8 @@ type Props = {
   question: selectQuestion | sortingQuestion | null;
   selectedAnswer: string | null;
   handleSubmit: (payload: boolean) => void;
-  isCorrect: boolean;
   state: StageState;
+  next: () => void;
 };
 
 const QuestionDrawer = ({
@@ -34,11 +34,12 @@ const QuestionDrawer = ({
   question,
   selectedAnswer,
   handleSubmit,
-  isCorrect,
   state,
+  next,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
   const isResult = state === "result";
+  const [isCorrect, setIsCorrect] = useState(false);
 
   useEffect(() => {
     if (isResult && isCorrect) {
@@ -48,7 +49,17 @@ const QuestionDrawer = ({
     } else {
       setSubmitText("submit");
     }
-  }, [isCorrect, isResult]);
+  }, [isResult, isCorrect]);
+
+  const handleCorrect = () => {
+    if (submitText === "OK" || submitText === "Next") {
+      next();
+    }
+
+    const result = selectedAnswer === question?.answer;
+    setIsCorrect(result);
+    handleSubmit(result);
+  };
 
   return (
     <Drawer
@@ -100,9 +111,7 @@ const QuestionDrawer = ({
                 variant={
                   isResult ? (isCorrect ? "success" : "failure") : "default"
                 }
-                onClick={() =>
-                  handleSubmit(selectedAnswer === question?.answer)
-                }
+                onClick={handleCorrect}
               >
                 {submitText}
               </Button>

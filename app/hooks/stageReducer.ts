@@ -7,11 +7,11 @@ export interface State {
   isOpen: boolean;
   questionCount: number;
   totalCount: number;
-  questions: (selectQuestion | sortingQuestion)[] | null;
+  questions: (selectQuestion | sortingQuestion)[];
   currentQuestion: selectQuestion | sortingQuestion | null;
+  failureQuestion: selectQuestion | sortingQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
-  isCorrect: boolean;
   isError: string | null;
 }
 
@@ -19,12 +19,14 @@ export type Action =
   | { type: 'SET_SNAP'; payload: number | string | null }
   | { type: 'TOGGLE_OPEN' }
   | { type: 'SET_QUESTION_COUNT'; payload: number }
+  | { type: 'INCREMENT_QUESTION_COUNT' }
   | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | sortingQuestion)[] | null }
+  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | sortingQuestion)[]}
+  | { type: 'ADD_QUESTION'; payload: selectQuestion | sortingQuestion }
   | { type: 'SET_QUESTION'; payload: selectQuestion | sortingQuestion | null }
+  | { type: 'SET_FAILURE_QUESTION'; payload: selectQuestion | sortingQuestion | null }
   | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
-  | { type: 'CORRECT_ANSWER'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null };
 
 export const initialState: State = {
@@ -32,11 +34,11 @@ export const initialState: State = {
   isOpen: true,
   questionCount: 1,
   totalCount: 0,
-  questions: null,
+  questions: [],
   currentQuestion: null,
+  failureQuestion: null,
   stageState: "prepare",
   selectedAnswer: null,
-  isCorrect: false,
   isError: null,
 };
 
@@ -48,18 +50,22 @@ export function reducer(state: State, action: Action): State {
       return { ...state, isOpen: !state.isOpen };
     case 'SET_QUESTION_COUNT':
       return { ...state, questionCount: action.payload };
+    case 'INCREMENT_QUESTION_COUNT':
+      return { ...state, questionCount: state.questionCount + 1 };
     case 'SET_TOTAL_COUNT':
       return { ...state, totalCount: action.payload };
     case 'SET_QUESTIONS':
       return { ...state, questions: action.payload };
+    case 'ADD_QUESTION':
+      return { ...state, questions: [...state.questions, action.payload] };
     case 'SET_QUESTION':
       return{ ...state, currentQuestion: action.payload };
+    case 'SET_FAILURE_QUESTION':
+      return { ...state, failureQuestion: action.payload };
     case 'SET_STAGE_STATE':
       return { ...state, stageState: action.payload };
     case 'SET_SELECTED_ANSWER':
       return { ...state, selectedAnswer: action.payload };
-    case 'CORRECT_ANSWER':
-      return { ...state, isCorrect: action.payload };
     case 'SET_ERROR':
       return { ...state, isError: action.payload };
     default:

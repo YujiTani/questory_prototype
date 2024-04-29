@@ -11,6 +11,7 @@ import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
 import { Skeleton } from "@/components/common/skeleton";
+import { unstable_batchedUpdates } from "react-dom";
 
 export const runtime = "edge";
 
@@ -29,10 +30,10 @@ const StagePage = () => {
  * 2. 解説テキストとDB部分を受け取れるようにする
  * 3. 回答部分のコンポーネントを作成する(あとはsort型を作成する)
  * 4. 解答後テキストのアイコン画像を用意する
- * 5. エラーの解消をする
  * 6. 次の問題を表示する処理を作成する
- * 7.クリア判定を作成する
+ * 7. クリア判定を作成する
  * 8. エラー画面切り替えと、問題セットはuseEffect化する
+ * 9. SEのON／OFF切り替えをユーザーができるようにする
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
@@ -42,7 +43,6 @@ const InnerStagePage = () => {
 
   // 初期化
   const init = useCallback(() => {
-    dispatch({ type: "SET_TOTAL_COUNT", payload: 0 });
     dispatch({ type: "SET_QUESTION_COUNT", payload: 1 });
     dispatch({ type: "SET_QUESTION", payload: null });
 
@@ -56,24 +56,20 @@ const InnerStagePage = () => {
     }
 
     dispatch({ type: "SET_QUESTIONS", payload: questions });
-    dispatch({
-      type: "SET_TOTAL_COUNT",
-      payload: state.questions?.length ?? 0,
-    });
     dispatch({ type: "SET_QUESTION", payload: questions[0] });
-  }, [stageId, dispatch, state.questions?.length]);
+  }, [stageId, dispatch]);
 
   // 設定をリセット
   const reset = useCallback(() => {
     dispatch({ type: "SET_SNAP", payload: "148px" });
     dispatch({ type: "SET_STAGE_STATE", payload: "prepare" });
     dispatch({ type: "SET_SELECTED_ANSWER", payload: "" });
-    dispatch({ type: "CORRECT_ANSWER", payload: false });
     dispatch({ type: "SET_ERROR", payload: null });
   }, [dispatch]);
 
+  // 新しい問題をセット
   const setQuestions = useCallback(() => {
-    if (state.currentQuestion === null && state.totalCount === 0) {
+    if (state.currentQuestion === null) {
       init();
     }
 
@@ -83,13 +79,11 @@ const InnerStagePage = () => {
       payload: state.questions![state.questionCount],
     });
   }, [
-    state.currentQuestion,
-    state.totalCount,
     state.questionCount,
-    dispatch,
     init,
     reset,
     state.questions,
+    state.currentQuestion,
   ]);
 
   useEffect(() => {
@@ -97,7 +91,6 @@ const InnerStagePage = () => {
       setQuestions();
     }
   }, [stageId, state.questionCount, setQuestions]);
-  // 新しい問題をセット
 
   const answers = useMemo(() => {
     const answer = state.currentQuestion?.answer ?? "";
@@ -125,18 +118,34 @@ const InnerStagePage = () => {
     dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
   };
 
-  const handleSubmit = (payload: boolean) => {
-    dispatch({ type: "CORRECT_ANSWER", payload });
+  const handleSubmit = async (isCorrect: boolean) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "result" });
-    // TODO: SEのON／OFF切り替えはユーザーができるようにする
-    const sound = payload ? "success2" : "failure2";
-    const audio = new Audio(`/se/${sound}.mp3`);
-    audio.play();
 
-    // 間違えている場合、追加処理
-    if (!state.isCorrect) {
-      // status.currentQuestionを配列にpush
+    const sound = isCorrect ? "success2" : "failure2";
+    const audio = new Audio(`/se/${sound}.mp3`);
+    await audio.play();
+
+    if (!state.currentQuestion) {
+      dispatch({ type: "SET_ERROR", payload: "No question found" });
+      return;
     }
+
+    if (!isCorrect) {
+      const newQuestion = {
+        ...state.currentQuestion,
+        failure: state.currentQuestion.failure + 1,
+      };
+      dispatch({ type: "SET_FAILURE_QUESTION", payload: newQuestion });
+    }
+  };
+
+  const next = () => {
+    if (state.failureQuestion) {
+      dispatch({ type: "ADD_QUESTION", payload: state.failureQuestion });
+    }
+
+    dispatch({ type: "INCREMENT_QUESTION_COUNT" });
+    setQuestions();
   };
 
   // 解答で使用するコンポーネントを取得
@@ -164,7 +173,7 @@ const InnerStagePage = () => {
           }
           title={state.currentQuestion?.question ?? ""}
           index={state.questionCount}
-          count={state.totalCount}
+          count={state.questions.length}
         />
         <main className="mt-14">
           {state.currentQuestion ? (
@@ -185,8 +194,8 @@ const InnerStagePage = () => {
           question={state.currentQuestion}
           selectedAnswer={state.selectedAnswer}
           handleSubmit={handleSubmit}
-          isCorrect={state.isCorrect}
           state={state.stageState}
+          next={next}
         />
       </div>
     </>
