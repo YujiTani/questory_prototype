@@ -2,7 +2,7 @@
 
 import { useReducer, useEffect, useMemo, useCallback } from "react";
 import { useParams } from "next/navigation";
-import MultipleChoice from "@/components/question/multipleChoice";
+import SelectAnswer from "@/components/question/selectAnswer";
 import QuestionDrawer from "@/components/question/questionDrawer";
 import QuestionInfo from "@/components/question/questionInfo";
 import { stages as stageData } from "@/data/stages";
@@ -11,7 +11,6 @@ import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
 import { Skeleton } from "@/components/common/skeleton";
-import { unstable_batchedUpdates } from "react-dom";
 
 export const runtime = "edge";
 
@@ -155,7 +154,7 @@ const InnerStagePage = () => {
   // 解答で使用するコンポーネントを取得
   // TODO: 数が増えた場合、別ファイルに切り出す
   const AnserField = isSelectType ? (
-    <MultipleChoice
+    <SelectAnswer
       answers={answers}
       handleClick={handleSelectedAnswer}
       selectedAnswer={state.selectedAnswer}

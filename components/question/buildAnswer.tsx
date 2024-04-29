@@ -8,7 +8,7 @@ type Props = {
   state: StageState;
 };
 
-const MultipleChoice = ({
+const BuildAnswer = ({
   answers,
   handleClick,
   selectedAnswer,
@@ -34,4 +34,4 @@ const MultipleChoice = ({
   );
 };
 
-export default MultipleChoice;
+export default BuildAnswer;
