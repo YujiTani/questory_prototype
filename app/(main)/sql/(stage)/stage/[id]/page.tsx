@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useEffect, useMemo } from "react";
+import { useReducer, useEffect, useMemo, useCallback } from "react";
 import { useParams } from "next/navigation";
 import MultipleChoice from "@/components/question/multipleChoice";
 import QuestionDrawer from "@/components/question/questionDrawer";
@@ -14,6 +14,7 @@ import { Skeleton } from "@/components/common/skeleton";
 
 export const runtime = "edge";
 
+// TODO: エラーがキャッチできているか確認する
 const StagePage = () => {
   return (
     <SuspenseBoundary>
@@ -31,6 +32,7 @@ const StagePage = () => {
  * 5. エラーの解消をする
  * 6. 次の問題を表示する処理を作成する
  * 7.クリア判定を作成する
+ * 8. エラー画面切り替えと、問題セットはuseEffect化する
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
@@ -39,7 +41,7 @@ const InnerStagePage = () => {
   usePageTransitionGuard();
 
   // 初期化
-  const init = () => {
+  const init = useCallback(() => {
     dispatch({ type: "SET_TOTAL_COUNT", payload: 0 });
     dispatch({ type: "SET_QUESTION_COUNT", payload: 1 });
     dispatch({ type: "SET_QUESTION", payload: null });
@@ -59,37 +61,43 @@ const InnerStagePage = () => {
       payload: state.questions?.length ?? 0,
     });
     dispatch({ type: "SET_QUESTION", payload: questions[0] });
-  };
+  }, [stageId, dispatch, state.questions?.length]);
 
   // 設定をリセット
-  const reset = () => {
-    // クエストカウントと現在のクエストの初期化は、マウント時のみ行う
+  const reset = useCallback(() => {
     dispatch({ type: "SET_SNAP", payload: "148px" });
     dispatch({ type: "SET_STAGE_STATE", payload: "prepare" });
     dispatch({ type: "SET_SELECTED_ANSWER", payload: "" });
     dispatch({ type: "CORRECT_ANSWER", payload: false });
     dispatch({ type: "SET_ERROR", payload: null });
-  };
+  }, [dispatch]);
 
-  // 新しい問題をセット
-  const setQuestions = () => {
+  const setQuestions = useCallback(() => {
     if (state.currentQuestion === null && state.totalCount === 0) {
       init();
     }
 
     reset();
-
     dispatch({
       type: "SET_QUESTION",
       payload: state.questions![state.questionCount],
     });
-  };
+  }, [
+    state.currentQuestion,
+    state.totalCount,
+    state.questionCount,
+    dispatch,
+    init,
+    reset,
+    state.questions,
+  ]);
 
   useEffect(() => {
     if (stageId) {
       setQuestions();
     }
-  }, [stageId]);
+  }, [stageId, state.questionCount, setQuestions]);
+  // 新しい問題をセット
 
   const answers = useMemo(() => {
     const answer = state.currentQuestion?.answer ?? "";
