@@ -34,6 +34,7 @@ const StagePage = () => {
  * 7. クリア判定を作成する
  * 8. エラー画面切り替えと、問題セットはuseEffect化する
  * 9. SEのON／OFF切り替えをユーザーができるようにする
+ * 10. 次の問題に変わったのか、わかりやすくする
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
