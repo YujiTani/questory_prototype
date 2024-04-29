@@ -11,7 +11,11 @@ import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
 import { Skeleton } from "@/components/common/skeleton";
-import { useAnswerForSelectQuestion } from "@/app/hooks/createAnswers";
+import {
+  useAnswerForSelectQuestion,
+  useAnswerForSortQuestion,
+} from "@/app/hooks/createAnswers";
+import BuildAnswer from "@/components/question/buildAnswer";
 
 export const runtime = "edge";
 
@@ -40,6 +44,7 @@ const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const answerForSelectQuestion = useAnswerForSelectQuestion;
+  const answerForSortQuestion = useAnswerForSortQuestion;
 
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
@@ -106,10 +111,18 @@ const InnerStagePage = () => {
     );
   }
 
-  const answers =
-    state.currentQuestion?.type === "select"
-      ? answerForSelectQuestion(state.currentQuestion)
-      : [];
+  const getAnswers = () => {
+    switch (state.currentQuestion?.type) {
+      case "select":
+        return answerForSelectQuestion(state.currentQuestion);
+      case "sort":
+        return answerForSortQuestion(state.currentQuestion);
+      default:
+        return [];
+    }
+  };
+
+  const answers = getAnswers();
 
   const handleSelectedAnswer = (answer: string) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
@@ -158,10 +171,7 @@ const InnerStagePage = () => {
         state={state.stageState}
       />
     ) : (
-      <div className="text-center">
-        <h2 className="text-2xl font-bold">Coming Soon</h2>
-        <p>鋭意開発中…🔧</p>
-      </div>
+      <BuildAnswer answers={answers} state={state.stageState} />
     );
 
   return (
@@ -176,7 +186,7 @@ const InnerStagePage = () => {
           index={state.questionCount}
           count={state.questions.length}
         />
-        <main className="mt-14">
+        <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
           {state.currentQuestion ? (
             AnserField
           ) : (
@@ -199,6 +209,10 @@ const InnerStagePage = () => {
           next={next}
           isCorrectAnswer={state.isCorrectAnswer}
         />
+        {/* <div className="text-center">
+          <h2 className="text-2xl font-bold">Coming Soon</h2>
+          <p>鋭意開発中…🔧</p>
+        </div> */}
       </div>
     </>
   );
