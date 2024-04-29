@@ -15,7 +15,7 @@ const BuildAnswer = ({ answers, state }: Props) => {
       return;
     }
 
-    setSelectedAnswer([...selectedAnswers, answer + " "]);
+    setSelectedAnswer([...selectedAnswers, answer]);
   };
 
   const isSelected = (answer: string) => {
@@ -23,24 +23,28 @@ const BuildAnswer = ({ answers, state }: Props) => {
   };
 
   return (
-    <div className="flex flex-wrap gap-2 mb-40">
+    <div className="flex flex-wrap gap-6 mb-40">
       {selectedAnswers.length > 0 ? (
-        <div className="w-full p-4 flex flex-wrap gap-4 rounded-md bg-gray-100 border-slate-400">
+        <div className="w-full p-4 flex flex-wrap gap-1 rounded-md bg-gray-100 border-slate-400">
           {selectedAnswers.map((answer) => {
             return (
               <span
                 key={answer}
-                className="p-2 text-slate-600 border-slate-600 border-b-slate-800 rounded-md bg-white"
+                className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white"
               >
                 {answer}
               </span>
             );
           })}
+          <span className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white font-bold">
+            ;
+          </span>
         </div>
       ) : null}
 
-      {answers.length > 0
-        ? answers.map((answer) => (
+      {answers.length > 0 ? (
+        <div className="flex flex-wrap gap-1">
+          {answers.map((answer) => (
             <TagButton
               key={answer}
               onClick={() => handleClicked(answer)}
@@ -48,8 +52,11 @@ const BuildAnswer = ({ answers, state }: Props) => {
             >
               {answer}
             </TagButton>
-          ))
-        : null}
+          ))}
+        </div>
+      ) : (
+        <p>回答がありません。</p>
+      )}
     </div>
   );
 };
