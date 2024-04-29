@@ -65,6 +65,8 @@ const InnerStagePage = () => {
     dispatch({ type: "SET_SNAP", payload: "148px" });
     dispatch({ type: "SET_STAGE_STATE", payload: "prepare" });
     dispatch({ type: "SET_SELECTED_ANSWER", payload: "" });
+    dispatch({ type: "SET_FAILURE_QUESTION", payload: null });
+    dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: false });
     dispatch({ type: "SET_ERROR", payload: null });
   }, [dispatch]);
 
