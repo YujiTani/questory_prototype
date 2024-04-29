@@ -11,6 +11,7 @@ import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
 import { Skeleton } from "@/components/common/skeleton";
+import { useAnswerForSelectQuestion } from "@/app/hooks/createAnswers";
 
 export const runtime = "edge";
 
@@ -38,6 +39,8 @@ const StagePage = () => {
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
+  const answerForSelectQuestion = useAnswerForSelectQuestion;
+
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
 
@@ -94,16 +97,6 @@ const InnerStagePage = () => {
     }
   }, [stageId, state.questionCount, setQuestions]);
 
-  // TODO: 回答作成処理はhooks化する
-  const answers = useMemo(() => {
-    const answer = state.currentQuestion?.answer ?? "";
-    const falseAnswers =
-      state.currentQuestion?.type === "sorting"
-        ? []
-        : state.currentQuestion?.falseAnswers;
-    return [answer, ...(falseAnswers ?? [])];
-  }, [state.currentQuestion]);
-
   // エラーが発生した場合の表示
   if (state.isError) {
     return (
@@ -113,8 +106,10 @@ const InnerStagePage = () => {
     );
   }
 
-  // TODO: 問題タイプが増えた場合、ユニオン型にする
-  const questionType = state.currentQuestion?.type === "select";
+  const answers =
+    state.currentQuestion?.type === "select"
+      ? answerForSelectQuestion(state.currentQuestion)
+      : [];
 
   const handleSelectedAnswer = (answer: string) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
@@ -154,19 +149,20 @@ const InnerStagePage = () => {
 
   // 解答で使用するコンポーネントを取得
   // TODO: 数が増えた場合、別ファイルに切り出す
-  const AnserField = questionType ? (
-    <SelectAnswer
-      answers={answers}
-      handleClick={handleSelectedAnswer}
-      selectedAnswer={state.selectedAnswer}
-      state={state.stageState}
-    />
-  ) : (
-    <div className="text-center">
-      <h2 className="text-2xl font-bold">Coming Soon</h2>
-      <p>鋭意開発中…🔧</p>
-    </div>
-  );
+  const AnserField =
+    state.currentQuestion?.type === "select" ? (
+      <SelectAnswer
+        answers={answers}
+        handleClick={handleSelectedAnswer}
+        selectedAnswer={state.selectedAnswer}
+        state={state.stageState}
+      />
+    ) : (
+      <div className="text-center">
+        <h2 className="text-2xl font-bold">Coming Soon</h2>
+        <p>鋭意開発中…🔧</p>
+      </div>
+    );
 
   return (
     <>
