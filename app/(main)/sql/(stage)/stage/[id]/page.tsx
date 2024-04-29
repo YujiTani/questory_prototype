@@ -120,6 +120,7 @@ const InnerStagePage = () => {
 
   const handleSubmit = async (isCorrect: boolean) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "result" });
+    dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
 
     const sound = isCorrect ? "success2" : "failure2";
     const audio = new Audio(`/se/${sound}.mp3`);
@@ -155,6 +156,7 @@ const InnerStagePage = () => {
       answers={answers}
       handleClick={handleSelectedAnswer}
       selectedAnswer={state.selectedAnswer}
+      state={state.stageState}
     />
   ) : (
     <div className="text-center">
@@ -196,6 +198,7 @@ const InnerStagePage = () => {
           handleSubmit={handleSubmit}
           state={state.stageState}
           next={next}
+          isCorrectAnswer={state.isCorrectAnswer}
         />
       </div>
     </>

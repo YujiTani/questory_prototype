@@ -25,6 +25,7 @@ type Props = {
   handleSubmit: (payload: boolean) => void;
   state: StageState;
   next: () => void;
+  isCorrectAnswer: boolean;
 };
 
 const QuestionDrawer = ({
@@ -36,6 +37,7 @@ const QuestionDrawer = ({
   handleSubmit,
   state,
   next,
+  isCorrectAnswer,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
   const isResult = state === "result";
@@ -52,7 +54,7 @@ const QuestionDrawer = ({
   }, [isResult, isCorrect]);
 
   const handleCorrect = () => {
-    if (submitText === "OK" || submitText === "Next") {
+    if (isResult && isCorrectAnswer !== null) {
       next();
     }
 
@@ -76,8 +78,8 @@ const QuestionDrawer = ({
           className={clsx(
             "p-2 fixed flex flex-col bg-white border border-gray-200 border-b-none rounded-t-[20px] bottom-0 left-0 right-0 h-full max-h-[97%] mx-[-1px]",
             {
-              "bg-green-300 border-green-400": isResult && isCorrect,
-              "bg-red-200 border-red-400": isResult && !isCorrect,
+              "bg-green-300 border-green-400": isResult && isCorrectAnswer,
+              "bg-red-200 border-red-400": isResult && !isCorrectAnswer,
             }
           )}
         >
@@ -89,7 +91,7 @@ const QuestionDrawer = ({
           >
             <div className="mt-2 px-4">
               {isResult ? (
-                isCorrect ? (
+                isCorrectAnswer ? (
                   <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
                     <p className="flex justify-between text-green-800">
                       <span className="ml-4">◯ 正解</span>
@@ -109,7 +111,11 @@ const QuestionDrawer = ({
             <DrawerHeader>
               <Button
                 variant={
-                  isResult ? (isCorrect ? "success" : "failure") : "default"
+                  isResult
+                    ? isCorrectAnswer
+                      ? "success"
+                      : "failure"
+                    : "default"
                 }
                 onClick={handleCorrect}
               >
