@@ -311,4 +311,4 @@ const words6 = [
   }
 ] as const satisfies Word[]
 
-export const wordsList = [words1, words2, words3, words4, words5, words6]
+export const wordsList = [...words1, ...words2, ...words3, ...words4, ...words5, ...words6]

@@ -1,4 +1,4 @@
-export type questionType = "sorting" | "select";
+export type questionType = "select" | "sort";
 
 export type selectQuestion = {
   id: number;
@@ -17,7 +17,7 @@ export type sortQuestion = {
   answer: string;
   explanation: string;
   stage_id: number;
-  type: "sorting";
+  type: "sort";
   failure: number;
 };
 
@@ -194,7 +194,7 @@ const sortQuestions = [
       answer: "SELECT name FROM users WHERE id = 1",
       explanation: "解説はまだありません",
       stage_id: 2,
-      type: "sorting",
+      type: "sort",
       failure: 0,
   },
   {
@@ -203,7 +203,7 @@ const sortQuestions = [
     answer: "SELECT age FROM users WHERE id = 3",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -212,7 +212,7 @@ const sortQuestions = [
     answer: "SELECT created_at FROM users WHERE id = 1",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -221,7 +221,7 @@ const sortQuestions = [
     answer: "SELECT name, age, created_at FROM users WHERE id = 1",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -230,7 +230,7 @@ const sortQuestions = [
     answer: "SELECT name FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -239,7 +239,7 @@ const sortQuestions = [
     answer: "SELECT * FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -248,7 +248,7 @@ const sortQuestions = [
     answer: "SELECT * FROM users WHERE name IS NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -257,7 +257,7 @@ const sortQuestions = [
     answer: "SELECT * FROM users WHERE name IS NOT NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -266,7 +266,7 @@ const sortQuestions = [
     answer: "SELECT name FROM users WHERE age IS NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -275,7 +275,7 @@ const sortQuestions = [
     answer: "SELECT name FROM users WHERE name IS NOT NULL AND age IS NOT NULL",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -284,7 +284,7 @@ const sortQuestions = [
     answer: "SELECT COUNT(*) FROM users",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -293,7 +293,7 @@ const sortQuestions = [
     explanation: "解説はまだありません",
     answer: "SELECT name FROM users ORDER BY created_at ASC LIMIT 1",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -302,7 +302,7 @@ const sortQuestions = [
     answer: "SELECT name FROM users WHERE age BETWEEN 20 AND 30",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -311,7 +311,7 @@ const sortQuestions = [
     answer: "SELECT name FROM users ORDER BY created_at DESC LIMIT 3",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   },
   {
@@ -320,7 +320,7 @@ const sortQuestions = [
     answer: "SELECT * FROM users WHERE name LIKE 'A%'",
     explanation: "解説はまだありません",
     stage_id: 2,
-    type: "sorting",
+    type: "sort",
     failure: 0,
   }
 ] as const satisfies sortQuestion[]
