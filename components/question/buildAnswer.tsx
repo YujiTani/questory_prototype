@@ -28,17 +28,17 @@ const BuildAnswer = ({ answers, state }: Props) => {
         <div className="w-full p-4 flex flex-wrap gap-1 rounded-md bg-gray-100 border-slate-400">
           {selectedAnswers.map((answer) => {
             return (
-              <span
+              <TagButton
                 key={answer}
                 className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white"
               >
                 {answer}
-              </span>
+              </TagButton>
             );
           })}
-          <span className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white font-bold">
+          <TagButton variant="danger" className="font-bold">
             ;
-          </span>
+          </TagButton>
         </div>
       ) : null}
 
