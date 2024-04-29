@@ -33,7 +33,9 @@ export function useAnswerForSortQuestion(question: sortQuestion) {
     synonymsList.push(randomSynonym)
   })
 
-  const newAnswers = shuffleAnswers([...synonymsList, ...answers])
+  // ランダムに配列を短くする
+  const randomAnswers = synonymsList.slice(0, Math.floor(synonymsList.length / 2))
+  const newAnswers = shuffleAnswers([...randomAnswers, ...answers])
 
   // 単語の重複を覗いたものを返す
   return newAnswers.filter((item, index, self) => self.findIndex((t) => t === item) === index);

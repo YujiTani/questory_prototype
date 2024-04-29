@@ -1,14 +1,19 @@
-import { StageState } from "@/app/hooks/stageReducer";
+import { StageState, initialState, reducer } from "@/app/hooks/stageReducer";
 import { TagButton } from "./tagButton";
-import { useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 type Props = {
   answers: string[];
   state: StageState;
 };
 
-const BuildAnswer = ({ answers, state }: Props) => {
+const BuildAnswer = ({ answers }: Props) => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [selectedAnswers, setSelectedAnswer] = useState<string[]>([]);
+
+  useEffect(() => {
+    console.log("state.selectedAnswer", state.selectedAnswer);
+  }, [state.selectedAnswer]);
 
   const handleClicked = (answer: string) => {
     if (selectedAnswers?.includes(answer)) {
@@ -16,6 +21,18 @@ const BuildAnswer = ({ answers, state }: Props) => {
     }
 
     setSelectedAnswer([...selectedAnswers, answer]);
+    dispatch({
+      type: "SET_SELECTED_ANSWER",
+      payload: selectedAnswers.join(" "),
+    });
+  };
+
+  const handleDelete = (answer: string) => {
+    setSelectedAnswer(selectedAnswers.filter((item) => item !== answer));
+    dispatch({
+      type: "SET_SELECTED_ANSWER",
+      payload: selectedAnswers.join(" "),
+    });
   };
 
   const isSelected = (answer: string) => {
@@ -30,7 +47,9 @@ const BuildAnswer = ({ answers, state }: Props) => {
             return (
               <TagButton
                 key={answer}
+                onClick={() => handleDelete(answer)}
                 className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white"
+                disabled={state.stageState === "result"}
               >
                 {answer}
               </TagButton>
@@ -48,7 +67,7 @@ const BuildAnswer = ({ answers, state }: Props) => {
             <TagButton
               key={answer}
               onClick={() => handleClicked(answer)}
-              disabled={isSelected(answer)}
+              disabled={isSelected(answer) || state.stageState === "result"}
             >
               {answer}
             </TagButton>

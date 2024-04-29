@@ -39,6 +39,8 @@ const StagePage = () => {
  * 7. SEのON／OFF切り替えをユーザーができるようにする
  * 8. 次の問題に変わったのか、わかりやすくする
  * 9. 解答が長い時、ボタンがダサくなるのを修正する
+ * 10. 入力した解答を返す
+ * 11. error入力内容がただしく保存されていない
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
@@ -176,43 +178,45 @@ const InnerStagePage = () => {
 
   return (
     <>
-      <div className="scroll-smooth">
-        <QuestionInfo
-          question={state.currentQuestion}
-          target={
-            stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
-          }
-          title={state.currentQuestion?.question ?? ""}
-          index={state.questionCount}
-          count={state.questions.length}
-        />
-        <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
-          {state.currentQuestion ? (
-            AnserField
-          ) : (
-            <div className="mt-14 flex flex-col gap-4">
-              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-              <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-            </div>
-          )}
-        </main>
-        <QuestionDrawer
-          snap={state.snap}
-          setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
-          isOpen={state.isOpen}
-          question={state.currentQuestion}
-          selectedAnswer={state.selectedAnswer}
-          handleSubmit={handleSubmit}
-          state={state.stageState}
-          next={next}
-          isCorrectAnswer={state.isCorrectAnswer}
-        />
-        {/* <div className="text-center">
+      <div>
+        <div className="scroll-smooth">
+          <QuestionInfo
+            question={state.currentQuestion}
+            target={
+              stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+            }
+            title={state.currentQuestion?.question ?? ""}
+            index={state.questionCount}
+            count={state.questions.length}
+          />
+          <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
+            {state.currentQuestion ? (
+              AnserField
+            ) : (
+              <div className="mt-14 flex flex-col gap-4">
+                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+              </div>
+            )}
+          </main>
+          <QuestionDrawer
+            snap={state.snap}
+            setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+            isOpen={state.isOpen}
+            question={state.currentQuestion}
+            selectedAnswer={state.selectedAnswer}
+            handleSubmit={handleSubmit}
+            state={state.stageState}
+            next={next}
+            isCorrectAnswer={state.isCorrectAnswer}
+          />
+          {/* <div className="text-center">
           <h2 className="text-2xl font-bold">Coming Soon</h2>
           <p>鋭意開発中…🔧</p>
         </div> */}
+        </div>
       </div>
     </>
   );

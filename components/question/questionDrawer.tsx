@@ -59,6 +59,8 @@ const QuestionDrawer = ({
       return;
     }
 
+    console.log("selectedAnswer", selectedAnswer);
+    console.log("question?.answer", question?.answer);
     const result = selectedAnswer === question?.answer;
     setIsCorrect(result);
     handleSubmit(result);

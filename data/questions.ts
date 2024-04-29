@@ -173,7 +173,7 @@ const selectQuestions = [
   {
     id: 15,
     question: "特定のユーザーの年齢を取得するSQL文はどれですか？",
-    answer: "SELECT age FROM users WHERE id = 1;",
+    answer: "SELECT age FROM users WHERE id = 1",
     falseAnswers: [
       "SELECT user FROM age WHERE age;",
       "SELECT age FROM users WHERE users ORDER BY age;",

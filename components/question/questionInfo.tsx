@@ -30,8 +30,14 @@ const QuestionInfo = ({ question, target, title, index, count }: Props) => {
       <Separator orientation="horizontal" />
       <div className="flex justify-end">
         {question ? (
-          <span className="text-xs">
-            {index} / {count}
+          <span className="flex items-center justify-center text-xs font-extrabold py-1 px-2 bg-pink-500 rounded-2xl">
+            <span className="block text-center w-[24px] p-1 text-pink-400 bg-pink-100 rounded-full">
+              {index}
+            </span>
+            <span className="mx-1 text-white">/</span>
+            <span className="block text-center w-[24px] p-1 text-pink-700 bg-pink-100 rounded-full">
+              {count}
+            </span>
           </span>
         ) : (
           <Skeleton className="w-12 h-3 bg-gray-200" />
