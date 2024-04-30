@@ -17,7 +17,6 @@ type Props = {
 
 const Sidebar = ({ className }: Props) => {
   const pathname = usePathname();
-  const isActive = (path: string) => path === pathname;
 
   return (
     <div

@@ -14,15 +14,14 @@ const QuestLists = ({ quests }: Props) => {
 
   return (
     <div className="mt-5 flex flex-wrap gap-4 justify-center">
-      {/* QuestListコンポーネントに切り出す  */}
       {quests &&
         quests.map((quest) => (
           <Link
             key={quest.id}
             href={`/${lowerString(quest.name)}/1`}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center w-[calc(50%-10px)] max-w-[50%]"
           >
-            <QuestCard>
+            <QuestCard size="default">
               <Image
                 className="rounded border-2 border-slate-200 p-1"
                 src={quest.image || "/image/NotData.svg"}
