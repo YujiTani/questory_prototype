@@ -19,9 +19,20 @@ const QuestLists = ({ quests }: Props) => {
           <Link
             key={quest.id}
             href={`/${lowerString(quest.name)}/1`}
-            className="flex flex-col items-center w-[calc(50%-10px)] max-w-[50%]"
+            className={`flex flex-col items-center w-[calc(50%-10px)]
+            ${
+              quest.state === "coming_soon"
+                ? "pointer-events-none cursor-not-allowed"
+                : ""
+            }
+            `}
           >
-            <QuestCard size="default">
+            <QuestCard className="relative">
+              {quest.state === "coming_soon" ? (
+                <div className="absolute top-0 left-0 e-full h-full flex items-center justify-center text-white text-2xl font-extrabold bg-black/50 rounded-lg ">
+                  coming soon
+                </div>
+              ) : null}
               <Image
                 className="rounded border-2 border-slate-200 p-1"
                 src={quest.image || "/image/NotData.svg"}
