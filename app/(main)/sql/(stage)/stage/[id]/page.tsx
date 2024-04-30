@@ -41,6 +41,7 @@ const StagePage = () => {
  * 9. 解答が長い時、ボタンがダサくなるのを修正する
  * 10. 入力した解答を返す
  * 11. error入力内容がただしく保存されていない
+ * 12. 答えがシャッフルされるバグ
  */
 const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
