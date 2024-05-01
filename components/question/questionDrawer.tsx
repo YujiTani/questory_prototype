@@ -113,7 +113,7 @@ const QuestionDrawer = ({
               "overflow-hidden": snap !== 1,
             })}
           >
-            <div className="mt-2 px-4">
+            <div className="mt-2 px-4 h-[10px]">
               {isResult ? (
                 isCorrectAnswer ? (
                   <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
