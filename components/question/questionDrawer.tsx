@@ -65,7 +65,19 @@ const QuestionDrawer = ({
   };
 
   const handleShowExplanation = () => {
-    setSnap("355px");
+    if (snap === null) {
+      return;
+    }
+
+    // string型の場合、"px"部分以外を抽出してnumber型に変換
+    const snapNumber =
+      typeof snap === "string" ? parseInt(snap.replace("px", ""), 10) : snap;
+
+    if (snapNumber > 148) {
+      setSnap("148px");
+    } else {
+      setSnap("355px");
+    }
   };
 
   return (
@@ -74,7 +86,7 @@ const QuestionDrawer = ({
       modal={false}
       direction="bottom"
       dismissible={false}
-      snapPoints={["60px", "148px", "355px", 1]}
+      snapPoints={["70px", "148px", "355px", 1]}
       activeSnapPoint={snap}
       setActiveSnapPoint={setSnap}
     >
