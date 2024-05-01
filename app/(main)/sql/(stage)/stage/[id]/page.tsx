@@ -17,6 +17,7 @@ import QuestionInfo from "@/components/question/questionInfo";
 import BuildAnswer from "@/components/question/buildAnswer";
 import SelectAnswer from "@/components/question/selectAnswer";
 import { stages as stageData } from "@/data/stages";
+import ClearScreen from "@/components/question/clear";
 
 export const runtime = "edge";
 
@@ -155,6 +156,11 @@ const InnerStagePage = () => {
   };
 
   const next = () => {
+    if (state.questionCount >= state.questions.length - 1) {
+      dispatch({ type: "SHOW_CLEAR_SCREEN", payload: true });
+      return;
+    }
+
     if (state.failureQuestion) {
       dispatch({ type: "ADD_QUESTION", payload: state.failureQuestion });
     }
@@ -165,7 +171,11 @@ const InnerStagePage = () => {
 
   return (
     <>
-      {state.currentQuestion?.type === "select" ? (
+      {state.showClearScreen ? (
+        <div>
+          <ClearScreen />
+        </div>
+      ) : state.currentQuestion?.type === "select" ? (
         <div>
           <div className="scroll-smooth">
             <QuestionInfo

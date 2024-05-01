@@ -15,6 +15,7 @@ export interface State {
   answers: string[];
   isCorrectAnswer: boolean;
   isError: string | null;
+  showClearScreen: boolean;
 }
 
 export type Action =
@@ -31,7 +32,8 @@ export type Action =
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
   | { type: 'SET_ANSWERS'; payload: string[] }
   | { type: 'SET_IS_CORRECT_ANSWER'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string | null };
+  | { type: 'SET_ERROR'; payload: string | null }
+  | { type: 'SHOW_CLEAR_SCREEN'; payload: boolean };
 
 export const initialState: State = {
   snap: "148px",
@@ -46,6 +48,7 @@ export const initialState: State = {
   answers: [],
   isCorrectAnswer: false,
   isError: null,
+  showClearScreen: false,
 };
 
 export function reducer(state: State, action: Action): State {
@@ -78,6 +81,8 @@ export function reducer(state: State, action: Action): State {
       return { ...state, isCorrectAnswer: action.payload };
     case 'SET_ERROR':
       return { ...state, isError: action.payload };
+    case 'SHOW_CLEAR_SCREEN':
+      return { ...state, showClearScreen: action.payload };
     default:
       return state;
   }
