@@ -37,6 +37,7 @@ export default function Home() {
           <p className="mt-2 text-gray-500 text-sm">
             Authentication features will be added in future updates
           </p>
+          <p className="mt-2 text-gray-500 text-sm">※ スマホ推奨です</p>
         </div>
       ) : (
         <>

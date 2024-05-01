@@ -5,6 +5,7 @@ export type StageType = {
   complete_case: number; //  1: "全問正解"
   failed_case: number; //  1: "同じ問題を5回間違える"
   area_id: number;
+  state: "public" | "private" | "stopped" | "coming_soon"; 
 };
 
 export const stages = [
@@ -15,6 +16,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
+    state: "public",
   },
   {
     id: 2,
@@ -23,6 +25,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
+    state: "public",
   },
   {
     id: 3,
@@ -31,6 +34,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
+    state: "coming_soon",
   },
   {
     id: 4,
@@ -39,6 +43,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
+    state: "coming_soon",
   },
   {
     id: 5,
@@ -47,6 +52,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id:1,
+    state: "coming_soon",
   },
   {
     id: 6,
@@ -55,6 +61,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
+    state: "coming_soon",
   },
   {
     id: 7,
@@ -63,6 +70,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
   {
     id: 8,
@@ -71,6 +79,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
   {
     id: 9,
@@ -79,6 +88,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
   {
     id: 10,
@@ -87,6 +97,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
   {
     id: 11,
@@ -95,6 +106,7 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
   {
     id: 12,
@@ -103,5 +115,6 @@ export const stages = [
     complete_case: 1,
     failed_case: 1,
     area_id: 2,
+    state: "coming_soon",
   },
 ] as const satisfies StageType[];
