@@ -1,38 +1,34 @@
-import { StageState, initialState, reducer } from "@/app/hooks/stageReducer";
+import { initialState, reducer } from "@/app/hooks/stageReducer";
 import { TagButton } from "./tagButton";
 import { useEffect, useReducer, useState } from "react";
 
 type Props = {
   answers: string[];
-  state: StageState;
+  handleClick: (answer: string) => void;
+  selectedAnswer: string | null;
 };
 
-const BuildAnswer = ({ answers }: Props) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+const BuildAnswer = ({ answers, handleClick, selectedAnswer }: Props) => {
   const [selectedAnswers, setSelectedAnswer] = useState<string[]>([]);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log("state.selectedAnswer", state.selectedAnswer);
-  }, [state.selectedAnswer]);
+    console.log("selectedAnswer", selectedAnswer);
+  }, [selectedAnswer]);
 
   const handleClicked = (answer: string) => {
     if (selectedAnswers?.includes(answer)) {
       return;
     }
 
-    setSelectedAnswer([...selectedAnswers, answer]);
-    dispatch({
-      type: "SET_SELECTED_ANSWER",
-      payload: selectedAnswers.join(" "),
-    });
+    const newSelectedAnswers = [...selectedAnswers, answer];
+    setSelectedAnswer(newSelectedAnswers);
+    handleClick(newSelectedAnswers.join(" "));
   };
 
   const handleDelete = (answer: string) => {
     setSelectedAnswer(selectedAnswers.filter((item) => item !== answer));
-    dispatch({
-      type: "SET_SELECTED_ANSWER",
-      payload: selectedAnswers.join(" "),
-    });
+    handleClick(selectedAnswers.join(" "));
   };
 
   const isSelected = (answer: string) => {

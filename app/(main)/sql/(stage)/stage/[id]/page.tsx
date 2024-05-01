@@ -1,8 +1,7 @@
 "use client";
 
-import { useReducer, useEffect, useCallback, useState } from "react";
+import { useReducer, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
-import SelectAnswer from "@/components/question/selectAnswer";
 import { questionsList } from "@/data/questions";
 import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
@@ -11,9 +10,13 @@ import {
   useAnswerForSelectQuestion,
   useAnswerForBuildQuestion,
 } from "@/app/hooks/useAnswers";
-import BuildAnswer from "@/components/question/buildAnswer";
 import SelectQuestion from "@/components/question/selectQuestion";
-import BuildQuestion from "@/components/question/buildQuestion";
+import QuestionDrawer from "@/components/question/questionDrawer";
+import { Skeleton } from "@/components/common/skeleton";
+import QuestionInfo from "@/components/question/questionInfo";
+import BuildAnswer from "@/components/question/buildAnswer";
+import SelectAnswer from "@/components/question/selectAnswer";
+import { stages as stageData } from "@/data/stages";
 
 export const runtime = "edge";
 
@@ -128,29 +131,28 @@ const InnerStagePage = () => {
     );
   }
 
-  // const handleSelectedAnswer = (answer: string) => {
-  //   dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
-  //   dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
-  // };
+  const handleSelectedAnswer = (answer: string) => {
+    dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
+    dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
+  };
 
-  // const handleSubmit = async (isCorrect: boolean) => {
-  //   await (isCorrect ? successSound.play() : failureSound.play());
-  //   dispatch({ type: "SET_STAGE_STATE", payload: "result" });
-  //   dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
+  const handleSubmit = async (isCorrect: boolean) => {
+    dispatch({ type: "SET_STAGE_STATE", payload: "result" });
+    dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
 
-  //   if (!state.currentQuestion) {
-  //     dispatch({ type: "SET_ERROR", payload: "No question found" });
-  //     return;
-  //   }
+    if (!state.currentQuestion) {
+      dispatch({ type: "SET_ERROR", payload: "No question found" });
+      return;
+    }
 
-  //   if (!isCorrect) {
-  //     const newQuestion = {
-  //       ...state.currentQuestion,
-  //       failure: state.currentQuestion.failure + 1,
-  //     };
-  //     dispatch({ type: "SET_FAILURE_QUESTION", payload: newQuestion });
-  //   }
-  // };
+    if (!isCorrect) {
+      const newQuestion = {
+        ...state.currentQuestion,
+        failure: state.currentQuestion.failure + 1,
+      };
+      dispatch({ type: "SET_FAILURE_QUESTION", payload: newQuestion });
+    }
+  };
 
   const next = () => {
     if (state.failureQuestion) {
@@ -161,65 +163,94 @@ const InnerStagePage = () => {
     setQuestions();
   };
 
-  // 解答で使用するコンポーネントを取得
-  // TODO: 数が増えた場合、別ファイルに切り出す
-  // const AnserField =
-  //   state.currentQuestion?.type === "select" ? (
-  //     <SelectAnswer
-  //       answers={state.answers}
-  //       handleClick={handleSelectedAnswer}
-  //       selectedAnswer={state.selectedAnswer}
-  //       state={state.stageState}
-  //     />
-  //   ) : (
-  // <BuildAnswer answers={state.answers} state={state.stageState} />
-  //   );
-
   return (
     <>
-      {
-        state.currentQuestion?.type === "select" ? (
-          <SelectQuestion next={next} />
-        ) : null
-        // <BuildQuestion next={next} />
-      }
-      {/* <div>
-        <div className="scroll-smooth">
-          <QuestionInfo
-            question={state.currentQuestion}
-            target={
-              stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
-            }
-            title={state.currentQuestion?.question ?? ""}
-            index={state.questionCount}
-            count={state.questions.length}
-            type={state.currentQuestion?.type}
-          />
-          <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
-            {state.currentQuestion ? (
-              AnserField
-            ) : (
-              <div className="mt-14 flex flex-col gap-4">
-                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-                <Skeleton className="w-[full] h-[40px] bg-gray-200" />
-              </div>
-            )}
-          </main>
-          <QuestionDrawer
-            snap={state.snap}
-            setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
-            isOpen={state.isOpen}
-            question={state.currentQuestion}
-            selectedAnswer={state.selectedAnswer}
-            handleSubmit={handleSubmit}
-            state={state.stageState}
-            next={next}
-            isCorrectAnswer={state.isCorrectAnswer}
-          />
+      {state.currentQuestion?.type === "select" ? (
+        <div>
+          <div className="scroll-smooth">
+            <QuestionInfo
+              question={state.currentQuestion}
+              target={
+                stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+              }
+              title={state.currentQuestion?.question ?? ""}
+              index={state.questionCount}
+              count={state.questions.length}
+              type={state.currentQuestion?.type}
+            />
+            <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
+              {state.currentQuestion ? (
+                <SelectAnswer
+                  answers={state.answers}
+                  handleClick={handleSelectedAnswer}
+                  selectedAnswer={state.selectedAnswer}
+                  state={state.stageState}
+                />
+              ) : (
+                <div className="mt-14 flex flex-col gap-4">
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                </div>
+              )}
+            </main>
+            <QuestionDrawer
+              snap={state.snap}
+              setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+              isOpen={state.isOpen}
+              question={state.currentQuestion}
+              selectedAnswer={state.selectedAnswer}
+              handleSubmit={handleSubmit}
+              state={state.stageState}
+              next={next}
+              isCorrectAnswer={state.isCorrectAnswer}
+            />
+          </div>
         </div>
-      </div> */}
+      ) : (
+        <div>
+          <div className="scroll-smooth">
+            <QuestionInfo
+              question={state.currentQuestion}
+              target={
+                stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+              }
+              title={state.currentQuestion?.question ?? ""}
+              index={state.questionCount}
+              count={state.questions.length}
+              type={state.currentQuestion?.type}
+            />
+            <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
+              {state.currentQuestion ? (
+                <BuildAnswer
+                  answers={state.answers}
+                  handleClick={handleSelectedAnswer}
+                  selectedAnswer={state.selectedAnswer}
+                />
+              ) : (
+                <div className="mt-14 flex flex-col gap-4">
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                </div>
+              )}
+            </main>
+            <QuestionDrawer
+              snap={state.snap}
+              setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+              isOpen={state.isOpen}
+              question={state.currentQuestion}
+              selectedAnswer={state.selectedAnswer}
+              handleSubmit={handleSubmit}
+              state={state.stageState}
+              next={next}
+              isCorrectAnswer={state.isCorrectAnswer}
+            />
+          </div>
+        </div>
+      )}
     </>
   );
 };
