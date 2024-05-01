@@ -34,7 +34,7 @@ export type Action =
   | { type: 'SET_ERROR'; payload: string | null };
 
 export const initialState: State = {
-  snap: "148px",
+  snap: "168px",
   isOpen: true,
   questionCount: 1,
   totalCount: 0,

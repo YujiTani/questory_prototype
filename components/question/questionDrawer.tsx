@@ -59,8 +59,6 @@ const QuestionDrawer = ({
       return;
     }
 
-    console.log("selectedAnswer", selectedAnswer);
-    console.log("question?.answer", question?.answer);
     const result = selectedAnswer === question?.answer;
     setIsCorrect(result);
     handleSubmit(result);
@@ -72,7 +70,7 @@ const QuestionDrawer = ({
       modal={false}
       direction="bottom"
       dismissible={false}
-      snapPoints={["148px", "355px", 1]}
+      snapPoints={["168px", "355px", 1]}
       activeSnapPoint={snap}
       setActiveSnapPoint={setSnap}
     >
@@ -98,14 +96,18 @@ const QuestionDrawer = ({
                   <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
                     <p className="flex justify-between text-green-800">
                       <span className="ml-4">◯ 正解</span>
-                      <small className="text-xs">解説も確認</small>
+                      <button onClick={() => setSnap("355px")}>
+                        <small className="text-xs">解説も確認</small>
+                      </button>
                     </p>
                   </DrawerTitle>
                 ) : (
                   <DrawerTitle className="animate-slideIn w-full h-full text-red-700 font-bold">
                     <p className="flex justify-between text-red-800">
                       <span className="ml-4">✕ 不正解</span>
-                      <small className="text-xs">解説も確認</small>
+                      <button onClick={() => setSnap("355px")}>
+                        <small className="text-xs">解説も確認</small>
+                      </button>
                     </p>
                   </DrawerTitle>
                 )
@@ -131,7 +133,10 @@ const QuestionDrawer = ({
                   {question?.explanation}
                 </p>
               ) : null}
-              <table className="mt-6 min-w-full rounded-md divide-y divide-gray-200">
+              <p className="mt-10 text-center text-gray-500">
+                ※ テーブル機能は、まだ未実装
+              </p>
+              <table className="min-w-full rounded-md divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
