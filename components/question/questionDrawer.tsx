@@ -7,7 +7,7 @@ import {
   DrawerHeader,
   DrawerPortal,
   DrawerTitle,
-} from "@/components/question/drawer";
+} from "@/components/ui/drawer";
 import clsx from "clsx";
 import { Button } from "@/components/common/button";
 import { useEffect, useState } from "react";
@@ -40,18 +40,25 @@ const QuestionDrawer = ({
   isCorrectAnswer,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
+  const isPrepare = state === "prepare";
   const isResult = state === "result";
   const [isCorrect, setIsCorrect] = useState(false);
 
   useEffect(() => {
-    if (isResult && isCorrect) {
-      setSubmitText("Next");
-    } else if (isResult && !isCorrect) {
-      setSubmitText("OK");
-    } else {
-      setSubmitText("submit");
+    switch (true) {
+      case isPrepare:
+        setSubmitText("Please Select Answer");
+        break;
+      case isResult && isCorrect:
+        setSubmitText("Next");
+        break;
+      case isResult && !isCorrect:
+        setSubmitText("OK");
+        break;
+      default:
+        setSubmitText("submit");
     }
-  }, [isResult, isCorrect]);
+  }, [isPrepare, isResult, isCorrect]);
 
   const handleCorrect = () => {
     if (isResult && isCorrectAnswer !== null) {
@@ -136,18 +143,22 @@ const QuestionDrawer = ({
                     ? isCorrectAnswer
                       ? "success"
                       : "failure"
-                    : "default"
+                    : "primary"
                 }
                 onClick={handleCorrect}
+                disabled={isPrepare}
               >
                 {submitText}
               </Button>
             </DrawerHeader>
             <DrawerFooter>
               {isResult ? (
-                <p className="p-4 mt-6 tracking-wide text-pretty">
-                  {question?.explanation}
-                </p>
+                <div>
+                  <h2 className="text-xl text-left font-bold">解説</h2>
+                  <p className="p-4 tracking-wide text-pretty">
+                    {question?.explanation}
+                  </p>
+                </div>
               ) : null}
               <p className="mt-10 text-center text-gray-500">
                 ※ テーブル機能は未実装です(イメージ図)
