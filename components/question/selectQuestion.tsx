@@ -21,11 +21,6 @@ const SelectQuestion = ({ next }: Props) => {
   };
 
   const handleSubmit = async (isCorrect: boolean) => {
-    const successSound = new Audio(`/se/success2.mp3`);
-    const failureSound = new Audio(`/se/failure2.mp3`);
-
-    await (isCorrect ? successSound.play() : failureSound.play());
-
     dispatch({ type: "SET_STAGE_STATE", payload: "result" });
     dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
 
