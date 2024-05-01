@@ -41,6 +41,11 @@ const QuestionInfo = ({
       )}
       <Separator orientation="horizontal" />
       <div className="flex justify-end gap-2 text-xs">
+        {question?.failure ? (
+          <QuestionBadge className="flex text-red-500 font-bold bg-red-50">
+            {"✕".repeat(question?.failure ?? 0).slice(0, 3)}
+          </QuestionBadge>
+        ) : null}
         <QuestionBadge className="min-16 bg-[#31ada1]">
           {typeText}
         </QuestionBadge>
