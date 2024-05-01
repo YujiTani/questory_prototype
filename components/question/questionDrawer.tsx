@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import clsx from "clsx";
 import { Button } from "@/components/common/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
 import { selectQuestion, buildQuestion } from "@/data/questions";
 
@@ -83,7 +83,7 @@ const QuestionDrawer = ({
     if (snapNumber > 148) {
       setSnap("148px");
     } else {
-      setSnap("355px");
+      setSnap("400px");
     }
   };
 
@@ -93,7 +93,7 @@ const QuestionDrawer = ({
       modal={false}
       direction="bottom"
       dismissible={false}
-      snapPoints={["70px", "148px", "355px", 1]}
+      snapPoints={["70px", "148px", "400px", 1]}
       activeSnapPoint={snap}
       setActiveSnapPoint={setSnap}
     >
@@ -153,14 +153,26 @@ const QuestionDrawer = ({
             </DrawerHeader>
             <DrawerFooter>
               {isResult ? (
-                <div>
-                  <h2 className="text-xl text-left font-bold">解説</h2>
-                  <p className="p-4 tracking-wide text-pretty">
-                    {question?.explanation}
-                  </p>
-                </div>
+                <>
+                  <div className="mt-4">
+                    <h2 className="text-xl text-left font-bold">
+                      あなたの解答
+                    </h2>
+                    <p className="p-4 tracking-wide text-pretty">
+                      {selectedAnswer}
+                    </p>
+                  </div>
+                  <div className="mt-4">
+                    <h2 className="text-xl text-left font-bold">
+                      正解: {question?.answer}
+                    </h2>
+                    <p className="p-4 tracking-wide text-pretty">
+                      {question?.explanation}
+                    </p>
+                  </div>
+                </>
               ) : null}
-              <p className="mt-10 text-center text-gray-500">
+              <p className="mt-10 text-center text-gray-500" id="table">
                 ※ テーブル機能は未実装です(イメージ図)
               </p>
               <table className="min-w-full rounded-md divide-y divide-gray-200">
