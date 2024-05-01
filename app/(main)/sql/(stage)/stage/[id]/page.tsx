@@ -47,7 +47,7 @@ const InnerStagePage = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const answerForSelectQuestion = useAnswerForSelectQuestion;
   const answerForBuildQuestion = useAnswerForBuildQuestion;
-  // const roopLimit = 3;
+  const roopLimit = 3;
 
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
@@ -58,7 +58,9 @@ const InnerStagePage = () => {
     dispatch({ type: "SET_QUESTION", payload: null });
 
     // テストが面倒なのでslice
-    const questions = questionsList.find(({ id }) => id === Number(stageId));
+    const questions = questionsList
+      .find(({ id }) => id === Number(stageId))
+      ?.questions.slice();
 
     if (!questions) {
       dispatch({ type: "SET_ERROR", payload: "No questions found" });
