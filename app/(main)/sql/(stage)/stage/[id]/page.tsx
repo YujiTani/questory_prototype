@@ -1,6 +1,6 @@
 "use client";
 
-import { useReducer, useEffect, useMemo, useCallback } from "react";
+import { useReducer, useEffect, useCallback } from "react";
 import { useParams } from "next/navigation";
 import SelectAnswer from "@/components/question/selectAnswer";
 import QuestionDrawer from "@/components/question/questionDrawer";
@@ -13,8 +13,8 @@ import SuspenseBoundary from "@/components/common/suspenseBoundary";
 import { Skeleton } from "@/components/common/skeleton";
 import {
   useAnswerForSelectQuestion,
-  useAnswerForSortQuestion,
-} from "@/app/hooks/createAnswers";
+  useAnswerForBuildQuestion,
+} from "@/app/hooks/useAnswers";
 import BuildAnswer from "@/components/question/buildAnswer";
 
 export const runtime = "edge";
@@ -47,7 +47,7 @@ const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const answerForSelectQuestion = useAnswerForSelectQuestion;
-  const answerForBuildQuestion = useAnswerForSortQuestion;
+  const answerForBuildQuestion = useAnswerForBuildQuestion;
 
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
@@ -105,16 +105,8 @@ const InnerStagePage = () => {
     }
   }, [stageId, state.questionCount, setQuestions]);
 
-  // エラーが発生した場合の表示
-  if (state.isError) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <p className="text-2xl font-bold">{state.isError}</p>
-      </div>
-    );
-  }
-
-  const getAnswers = () => {
+  // 解答を取得
+  const getAnswers = useCallback(() => {
     switch (state.currentQuestion?.type) {
       case "select":
         return answerForSelectQuestion(state.currentQuestion);
@@ -123,9 +115,21 @@ const InnerStagePage = () => {
       default:
         return [];
     }
-  };
+  }, [state.currentQuestion, answerForSelectQuestion, answerForBuildQuestion]);
 
-  const answers = getAnswers();
+  useEffect(() => {
+    const newAnswers = getAnswers();
+    dispatch({ type: "SET_ANSWERS", payload: newAnswers });
+  }, [state.currentQuestion, getAnswers, dispatch]);
+
+  // エラーが発生した場合の表示
+  if (state.isError) {
+    return (
+      <div className="w-full h-full flex items-center justify-center">
+        <p className="text-2xl font-bold">{state.isError}</p>
+      </div>
+    );
+  }
 
   const handleSelectedAnswer = (answer: string) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
@@ -168,13 +172,13 @@ const InnerStagePage = () => {
   const AnserField =
     state.currentQuestion?.type === "select" ? (
       <SelectAnswer
-        answers={answers}
+        answers={state.answers}
         handleClick={handleSelectedAnswer}
         selectedAnswer={state.selectedAnswer}
         state={state.stageState}
       />
     ) : (
-      <BuildAnswer answers={answers} state={state.stageState} />
+      <BuildAnswer answers={state.answers} state={state.stageState} />
     );
 
   return (

@@ -18,7 +18,7 @@ export function useAnswerForSelectQuestion(question: selectQuestion) {
 }
 
 // 並列系の解答を作成して返す
-export function useAnswerForSortQuestion(question: buildQuestion) {
+export function useAnswerForBuildQuestion(question: buildQuestion) {
   const shuffleAnswers = useRandomShuffle;
 
   const answers = question.answer.split(" ");

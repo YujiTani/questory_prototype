@@ -12,6 +12,7 @@ export interface State {
   failureQuestion: selectQuestion | buildQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
+  answers: string[];
   isCorrectAnswer: boolean;
   isError: string | null;
 }
@@ -28,6 +29,7 @@ export type Action =
   | { type: 'SET_FAILURE_QUESTION'; payload: selectQuestion | buildQuestion | null }
   | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
   | { type: 'SET_SELECTED_ANSWER'; payload: string }
+  | { type: 'SET_ANSWERS'; payload: string[] }
   | { type: 'SET_IS_CORRECT_ANSWER'; payload: boolean }
   | { type: 'SET_ERROR'; payload: string | null };
 
@@ -41,6 +43,7 @@ export const initialState: State = {
   failureQuestion: null,
   stageState: "prepare",
   selectedAnswer: null,
+  answers: [],
   isCorrectAnswer: false,
   isError: null,
 };
@@ -69,6 +72,8 @@ export function reducer(state: State, action: Action): State {
       return { ...state, stageState: action.payload };
     case 'SET_SELECTED_ANSWER':
       return { ...state, selectedAnswer: action.payload };
+    case 'SET_ANSWERS':
+      return { ...state, answers: action.payload };
     case 'SET_IS_CORRECT_ANSWER':
       return { ...state, isCorrectAnswer: action.payload };
     case 'SET_ERROR':
