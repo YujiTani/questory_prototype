@@ -3,7 +3,7 @@ import { selectQuestion, buildQuestion } from "@/data/questions";
 export type StageState = "prepare" | "selected" | "result";
 
 export interface State {
-  snap: number | string | null;
+  snap: number | number | string | null;
   isOpen: boolean;
   questionCount: number;
   totalCount: number;
@@ -34,7 +34,7 @@ export type Action =
   | { type: 'SET_ERROR'; payload: string | null };
 
 export const initialState: State = {
-  snap: "168px",
+  snap: "148px",
   isOpen: true,
   questionCount: 1,
   totalCount: 0,

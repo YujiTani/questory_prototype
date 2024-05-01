@@ -72,7 +72,7 @@ const InnerStagePage = () => {
 
   // 設定をリセット
   const reset = useCallback(() => {
-    dispatch({ type: "SET_SNAP", payload: "168px" });
+    dispatch({ type: "SET_SNAP", payload: "148px" });
     dispatch({ type: "SET_STAGE_STATE", payload: "prepare" });
     dispatch({ type: "SET_SELECTED_ANSWER", payload: "" });
     dispatch({ type: "SET_FAILURE_QUESTION", payload: null });
