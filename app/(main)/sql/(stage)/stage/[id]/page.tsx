@@ -1,21 +1,19 @@
 "use client";
 
-import { useReducer, useEffect, useCallback } from "react";
+import { useReducer, useEffect, useCallback, useState } from "react";
 import { useParams } from "next/navigation";
 import SelectAnswer from "@/components/question/selectAnswer";
-import QuestionDrawer from "@/components/question/questionDrawer";
-import QuestionInfo from "@/components/question/questionInfo";
-import { stages as stageData } from "@/data/stages";
 import { questionsList } from "@/data/questions";
 import { reducer, initialState } from "@/app/hooks/stageReducer";
 import { usePageTransitionGuard } from "@/app/hooks/usePageTransitionGuard";
 import SuspenseBoundary from "@/components/common/suspenseBoundary";
-import { Skeleton } from "@/components/common/skeleton";
 import {
   useAnswerForSelectQuestion,
   useAnswerForBuildQuestion,
 } from "@/app/hooks/useAnswers";
 import BuildAnswer from "@/components/question/buildAnswer";
+import SelectQuestion from "@/components/question/selectQuestion";
+import BuildQuestion from "@/components/question/buildQuestion";
 
 export const runtime = "edge";
 
@@ -130,32 +128,29 @@ const InnerStagePage = () => {
     );
   }
 
-  const handleSelectedAnswer = (answer: string) => {
-    dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
-    dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
-  };
+  // const handleSelectedAnswer = (answer: string) => {
+  //   dispatch({ type: "SET_STAGE_STATE", payload: "selected" });
+  //   dispatch({ type: "SET_SELECTED_ANSWER", payload: answer });
+  // };
 
-  const handleSubmit = async (isCorrect: boolean) => {
-    dispatch({ type: "SET_STAGE_STATE", payload: "result" });
-    dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
+  // const handleSubmit = async (isCorrect: boolean) => {
+  //   await (isCorrect ? successSound.play() : failureSound.play());
+  //   dispatch({ type: "SET_STAGE_STATE", payload: "result" });
+  //   dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
 
-    const sound = isCorrect ? "success2" : "failure2";
-    const audio = new Audio(`/se/${sound}.mp3`);
-    await audio.play();
+  //   if (!state.currentQuestion) {
+  //     dispatch({ type: "SET_ERROR", payload: "No question found" });
+  //     return;
+  //   }
 
-    if (!state.currentQuestion) {
-      dispatch({ type: "SET_ERROR", payload: "No question found" });
-      return;
-    }
-
-    if (!isCorrect) {
-      const newQuestion = {
-        ...state.currentQuestion,
-        failure: state.currentQuestion.failure + 1,
-      };
-      dispatch({ type: "SET_FAILURE_QUESTION", payload: newQuestion });
-    }
-  };
+  //   if (!isCorrect) {
+  //     const newQuestion = {
+  //       ...state.currentQuestion,
+  //       failure: state.currentQuestion.failure + 1,
+  //     };
+  //     dispatch({ type: "SET_FAILURE_QUESTION", payload: newQuestion });
+  //   }
+  // };
 
   const next = () => {
     if (state.failureQuestion) {
@@ -168,21 +163,27 @@ const InnerStagePage = () => {
 
   // 解答で使用するコンポーネントを取得
   // TODO: 数が増えた場合、別ファイルに切り出す
-  const AnserField =
-    state.currentQuestion?.type === "select" ? (
-      <SelectAnswer
-        answers={state.answers}
-        handleClick={handleSelectedAnswer}
-        selectedAnswer={state.selectedAnswer}
-        state={state.stageState}
-      />
-    ) : (
-      <BuildAnswer answers={state.answers} state={state.stageState} />
-    );
+  // const AnserField =
+  //   state.currentQuestion?.type === "select" ? (
+  //     <SelectAnswer
+  //       answers={state.answers}
+  //       handleClick={handleSelectedAnswer}
+  //       selectedAnswer={state.selectedAnswer}
+  //       state={state.stageState}
+  //     />
+  //   ) : (
+  // <BuildAnswer answers={state.answers} state={state.stageState} />
+  //   );
 
   return (
     <>
-      <div>
+      {
+        state.currentQuestion?.type === "select" ? (
+          <SelectQuestion next={next} />
+        ) : null
+        // <BuildQuestion next={next} />
+      }
+      {/* <div>
         <div className="scroll-smooth">
           <QuestionInfo
             question={state.currentQuestion}
@@ -218,7 +219,7 @@ const InnerStagePage = () => {
             isCorrectAnswer={state.isCorrectAnswer}
           />
         </div>
-      </div>
+      </div> */}
     </>
   );
 };
