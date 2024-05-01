@@ -227,6 +227,7 @@ const InnerStagePage = () => {
                   answers={state.answers}
                   handleClick={handleSelectedAnswer}
                   selectedAnswer={state.selectedAnswer}
+                  state={state.stageState}
                 />
               ) : (
                 <div className="mt-14 flex flex-col gap-4">

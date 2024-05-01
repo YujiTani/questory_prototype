@@ -1,20 +1,27 @@
-import { initialState, reducer } from "@/app/hooks/stageReducer";
+import { StageState } from "@/app/hooks/stageReducer";
 import { TagButton } from "./tagButton";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   answers: string[];
   handleClick: (answer: string) => void;
   selectedAnswer: string | null;
+  state: StageState;
 };
 
-const BuildAnswer = ({ answers, handleClick, selectedAnswer }: Props) => {
+const BuildAnswer = ({
+  answers,
+  handleClick,
+  selectedAnswer,
+  state,
+}: Props) => {
   const [selectedAnswers, setSelectedAnswer] = useState<string[]>([]);
-  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    console.log("selectedAnswer", selectedAnswer);
-  }, [selectedAnswer]);
+    if (state === "prepare") {
+      setSelectedAnswer([]);
+    }
+  }, [state]);
 
   const handleClicked = (answer: string) => {
     if (selectedAnswers?.includes(answer)) {
@@ -45,7 +52,7 @@ const BuildAnswer = ({ answers, handleClick, selectedAnswer }: Props) => {
                 key={answer}
                 onClick={() => handleDelete(answer)}
                 className="p-2 text-slate-600 border-slate-200 border-b-[6px] rounded-md bg-white"
-                disabled={state.stageState === "result"}
+                disabled={state === "result"}
               >
                 {answer}
               </TagButton>
@@ -63,7 +70,7 @@ const BuildAnswer = ({ answers, handleClick, selectedAnswer }: Props) => {
             <TagButton
               key={answer}
               onClick={() => handleClicked(answer)}
-              disabled={isSelected(answer) || state.stageState === "result"}
+              disabled={isSelected(answer) || state === "result"}
             >
               {answer}
             </TagButton>
