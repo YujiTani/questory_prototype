@@ -34,11 +34,19 @@ const StageList = ({ stages, areaImage: area_image }: Props) => {
                 </div>
               </div>
             )}
-            <ImageCenter imageURL={area_image} alt="grass" />
+            <ImageCenter
+              imageURL={area_image}
+              alt="grass"
+              size={stage.stage_size}
+            />
           </>
         ) : (
           <>
-            <ImageCenter imageURL={area_image} alt="grass" />
+            <ImageCenter
+              imageURL={area_image}
+              alt="grass"
+              size={stage.stage_size}
+            />
             {stage.state !== "coming_soon" ? (
               <Link href={`stage/${stage.index}`}>
                 <Stage variant="primary" />

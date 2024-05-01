@@ -6,6 +6,7 @@ export type StageType = {
   failed_case: number; //  1: "同じ問題を5回間違える"
   area_id: number;
   state: "public" | "private" | "stopped" | "coming_soon"; 
+  stage_size?: number;
 };
 
 export const stages = [
@@ -17,6 +18,7 @@ export const stages = [
     failed_case: 1,
     area_id: 1,
     state: "public",
+    stage_size: 20,
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ export const stages = [
     failed_case: 1,
     area_id: 1,
     state: "public",
+    stage_size: 100,
   },
   {
     id: 3,
