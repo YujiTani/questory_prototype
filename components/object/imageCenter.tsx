@@ -3,18 +3,23 @@ import Image from "next/image";
 type Props = {
   imageURL: string;
   alt: string;
+  size?: number;
+  handleClick?: () => void;
 };
 
-const ImageCenter = ({ imageURL, alt }: Props) => {
+const ImageCenter = ({ imageURL, alt, size = 14, handleClick }: Props) => {
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div
+      className="w-full h-full flex justify-center items-center"
+      onClick={handleClick}
+    >
       <Image
         src={imageURL}
         alt={alt}
-        width={0}
-        height={0}
+        width={size * 1}
+        height={size * 1}
         sizes="100vw"
-        className="w-14 h-auto"
+        className={`w-${size} h-auto`}
       />
     </div>
   );

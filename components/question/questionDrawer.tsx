@@ -13,6 +13,7 @@ import { Button } from "@/components/common/button";
 import { useEffect, useState, useRef } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
 import { selectQuestion, buildQuestion } from "@/data/questions";
+import ImageCenter from "../object/imageCenter";
 
 export const runtime = "edge";
 
@@ -107,8 +108,24 @@ const QuestionDrawer = ({
             }
           )}
         >
+          <div className="absolute top-8px right-0 flex flex-col gap-2 w-6 mr-2 z-10">
+            {/* <button
+             */}
+            {/* </button> */}
+            <ImageCenter
+              imageURL="/image/icon_help2.svg"
+              alt="icon_help"
+              size={8}
+            />
+            <ImageCenter
+              imageURL="/image/icon_info2.svg"
+              alt="icon_help"
+              size={8}
+              handleClick={handleShowExplanation}
+            />
+          </div>
           <div
-            className={clsx("flex flex-col max-w-md mx-auto w-full", {
+            className={clsx("flex flex-col max-w-md mx-auto w-full relative", {
               "overflow-y-auto": snap === 1,
               "overflow-hidden": snap !== 1,
             })}
@@ -117,20 +134,14 @@ const QuestionDrawer = ({
               {isResult ? (
                 isCorrectAnswer ? (
                   <DrawerTitle className="animate-slideIn w-full h-full text-green-700 font-bold">
-                    <p className="flex justify-between text-green-800">
+                    <p className="flex justify-start items-center text-green-800">
                       <span className="ml-4">◯ 正解</span>
-                      <button onClick={handleShowExplanation}>
-                        <small className="text-xs">解説も確認</small>
-                      </button>
                     </p>
                   </DrawerTitle>
                 ) : (
                   <DrawerTitle className="animate-slideIn w-full h-full text-red-700 font-bold">
-                    <p className="flex justify-between text-red-800">
+                    <p className="flex justify-start items-center text-red-800">
                       <span className="ml-4">✕ 不正解</span>
-                      <button onClick={handleShowExplanation}>
-                        <small className="text-xs">解説も確認</small>
-                      </button>
                     </p>
                   </DrawerTitle>
                 )
