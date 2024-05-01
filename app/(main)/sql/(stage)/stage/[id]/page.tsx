@@ -47,7 +47,7 @@ const InnerStagePage = () => {
   const { id: stageId } = useParams<{ id: string }>();
   const [state, dispatch] = useReducer(reducer, initialState);
   const answerForSelectQuestion = useAnswerForSelectQuestion;
-  const answerForSortQuestion = useAnswerForSortQuestion;
+  const answerForBuildQuestion = useAnswerForSortQuestion;
 
   // 画面切り替え時に、確認を行う
   usePageTransitionGuard();
@@ -118,8 +118,8 @@ const InnerStagePage = () => {
     switch (state.currentQuestion?.type) {
       case "select":
         return answerForSelectQuestion(state.currentQuestion);
-      case "sort":
-        return answerForSortQuestion(state.currentQuestion);
+      case "build":
+        return answerForBuildQuestion(state.currentQuestion);
       default:
         return [];
     }
@@ -189,6 +189,7 @@ const InnerStagePage = () => {
             title={state.currentQuestion?.question ?? ""}
             index={state.questionCount}
             count={state.questions.length}
+            type={state.currentQuestion?.type}
           />
           <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
             {state.currentQuestion ? (

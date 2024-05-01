@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { Button } from "@/components/common/button";
 import { useEffect, useState } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
-import { selectQuestion, sortQuestion } from "@/data/questions";
+import { selectQuestion, buildQuestion } from "@/data/questions";
 
 export const runtime = "edge";
 
@@ -20,7 +20,7 @@ type Props = {
   snap: number | string | null;
   setSnap: (snap: number | string | null) => void;
   isOpen: boolean;
-  question: selectQuestion | sortQuestion | null;
+  question: selectQuestion | buildQuestion | null;
   selectedAnswer: string | null;
   handleSubmit: (payload: boolean) => void;
   state: StageState;

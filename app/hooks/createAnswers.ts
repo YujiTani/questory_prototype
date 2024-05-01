@@ -1,4 +1,4 @@
-import type { selectQuestion, sortQuestion} from "@/data/questions";
+import type { selectQuestion, buildQuestion} from "@/data/questions";
 import { useRandomShuffle } from "./randomShuffle";
 import { wordsList } from "@/data/words";
 
@@ -18,7 +18,7 @@ export function useAnswerForSelectQuestion(question: selectQuestion) {
 }
 
 // 並列系の解答を作成して返す
-export function useAnswerForSortQuestion(question: sortQuestion) {
+export function useAnswerForSortQuestion(question: buildQuestion) {
   const shuffleAnswers = useRandomShuffle;
 
   const answers = question.answer.split(" ");

@@ -1,16 +1,28 @@
-import { selectQuestion, sortQuestion } from "@/data/questions";
+import { selectQuestion, buildQuestion } from "@/data/questions";
 import { Separator } from "@radix-ui/react-separator";
 import { Skeleton } from "../common/skeleton";
+import { Badge } from "../ui/badge";
+import { QuestionBadge } from "./questionBadge";
 
 type Props = {
-  question: selectQuestion | sortQuestion | null;
+  question: selectQuestion | buildQuestion | null;
   target: string;
   title: string;
   index: number;
   count: number;
+  type: "select" | "build" | undefined;
 };
 
-const QuestionInfo = ({ question, target, title, index, count }: Props) => {
+const QuestionInfo = ({
+  question,
+  target,
+  title,
+  index,
+  count,
+  type,
+}: Props) => {
+  const typeText = type === "select" ? "4択" : "組み立て";
+
   return (
     <div className="mt-4 p-3 border-2 border-slate-300 rounded-md flex flex-col gap-3 border-b-[4px] border-b-slate-300 tracking-wide">
       {question ? (
@@ -28,14 +40,17 @@ const QuestionInfo = ({ question, target, title, index, count }: Props) => {
         </>
       )}
       <Separator orientation="horizontal" />
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2 text-xs">
+        <QuestionBadge className="min-16 bg-[#31ada1]">
+          {typeText}
+        </QuestionBadge>
         {question ? (
-          <span className="flex items-center justify-center text-xs font-extrabold py-1 px-2 bg-pink-500 rounded-2xl">
-            <span className="block text-center w-[24px] p-1 text-pink-400 bg-pink-100 rounded-full">
+          <span className="w-20 flex items-center justify-center font-extrabold py-1 px-2 bg-[#51647a] rounded-2xl">
+            <span className="flex items-center justify-center text-center w-[24px] py-1 px-2 text-pink-400 bg-white rounded-full">
               {index}
             </span>
-            <span className="mx-1 text-white">/</span>
-            <span className="block text-center w-[24px] p-1 text-pink-700 bg-pink-100 rounded-full">
+            <span className="mx-2 text-white">/</span>
+            <span className="flex items-center justify-center text-center w-[24px] py-1 px-2 text-[#453c5c] bg-white rounded-full">
               {count}
             </span>
           </span>

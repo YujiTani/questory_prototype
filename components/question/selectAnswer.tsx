@@ -15,7 +15,7 @@ const SelectAnswer = ({
   state,
 }: Props) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 mb-40">
       {answers.length > 0 ? (
         answers.map((answer) => (
           <Button
