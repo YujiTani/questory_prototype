@@ -8,7 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
-const QuestionHelper = () => {
+type Props = {
+  stage_id: string;
+  question_id: string;
+};
+
+const QuestionHelper = ({ stage_id, question_id }: Props) => {
   return (
     <Popover>
       <PopoverTrigger>
@@ -64,6 +69,8 @@ const QuestionHelper = () => {
             <div className="mt-6">
               <h3 className="text-md font-medium">詳細:</h3>
               <Input id="details" placeholder="詳細" className="h-8" />
+              <Input type="hidden" value={stage_id} name="stage_id" />
+              <Input type="hidden" value={question_id} name="question_id" />
             </div>
             <button
               type="submit"
