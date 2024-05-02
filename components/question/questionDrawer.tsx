@@ -14,13 +14,6 @@ import { useEffect, useState, useRef } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
 import { selectQuestion, buildQuestion } from "@/data/questions";
 import ImageCenter from "../object/imageCenter";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@radix-ui/react-popover";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../ui/input";
 import QuestionHelper from "./questionHelper";
 
 export const runtime = "edge";
