@@ -10,4 +10,3 @@ export default {
     connectionString: process.env.DATABASE_URL!,
   },
 } as const satisfies Config
-

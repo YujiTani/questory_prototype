@@ -1,3 +1,4 @@
+import { Slot } from "@radix-ui/react-slot";
 import Image from "next/image";
 
 type Props = {
@@ -5,23 +6,31 @@ type Props = {
   alt: string;
   size?: number;
   handleClick?: () => void;
+  asChild?: boolean;
 };
 
-const ImageCenter = ({ imageURL, alt, size = 14, handleClick }: Props) => {
+const ImageCenter = ({
+  imageURL,
+  alt,
+  size = 14,
+  handleClick,
+  asChild = false,
+}: Props) => {
+  const Comp = asChild ? Slot : "div";
+
   return (
-    <div
+    <Comp
       className="w-full h-full flex justify-center items-center"
       onClick={handleClick}
     >
       <Image
         src={imageURL}
         alt={alt}
-        width={size * 1}
-        height={size * 1}
+        width={size * 16}
+        height={size * 16}
         sizes="100vw"
-        className={`w-${size} h-auto`}
       />
-    </div>
+    </Comp>
   );
 };
 

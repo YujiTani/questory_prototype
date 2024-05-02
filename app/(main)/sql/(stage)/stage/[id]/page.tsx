@@ -10,7 +10,6 @@ import {
   useAnswerForSelectQuestion,
   useAnswerForBuildQuestion,
 } from "@/app/hooks/useAnswers";
-import SelectQuestion from "@/components/question/selectQuestion";
 import QuestionDrawer from "@/components/question/questionDrawer";
 import { Skeleton } from "@/components/common/skeleton";
 import QuestionInfo from "@/components/question/questionInfo";
@@ -218,6 +217,7 @@ const InnerStagePage = () => {
               state={state.stageState}
               next={next}
               isCorrectAnswer={state.isCorrectAnswer}
+              stageId={stageId}
             />
           </div>
         </div>
@@ -261,6 +261,7 @@ const InnerStagePage = () => {
               state={state.stageState}
               next={next}
               isCorrectAnswer={state.isCorrectAnswer}
+              stageId={stageId}
             />
           </div>
         </div>

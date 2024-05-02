@@ -14,6 +14,7 @@ import { useEffect, useState, useRef } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
 import { selectQuestion, buildQuestion } from "@/data/questions";
 import ImageCenter from "../object/imageCenter";
+import QuestionHelper from "./questionHelper";
 
 export const runtime = "edge";
 
@@ -27,6 +28,7 @@ type Props = {
   state: StageState;
   next: () => void;
   isCorrectAnswer: boolean;
+  stageId: string;
 };
 
 const QuestionDrawer = ({
@@ -39,6 +41,7 @@ const QuestionDrawer = ({
   state,
   next,
   isCorrectAnswer,
+  stageId,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
   const isPrepare = state === "prepare";
@@ -109,13 +112,9 @@ const QuestionDrawer = ({
           )}
         >
           <div className="absolute top-8px right-0 flex flex-col gap-2 w-6 mr-2 z-10">
-            {/* <button
-             */}
-            {/* </button> */}
-            <ImageCenter
-              imageURL="/image/icon_help2.svg"
-              alt="icon_help"
-              size={8}
+            <QuestionHelper
+              stage_id={Number(stageId)}
+              question_id={Number(question?.id)}
             />
             <ImageCenter
               imageURL="/image/icon_info2.svg"
