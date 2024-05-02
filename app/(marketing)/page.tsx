@@ -38,7 +38,8 @@ export default function Home() {
             Authentication features will be added in future updates
           </p>
           <p className="mt-2 text-gray-500 text-sm">
-            ※ 時間の関係で、スマホ用レイアウトのみ対応しています
+            ※
+            時間の関係で、スマホ用レイアウトのみ対応となっております。ご了承ください
           </p>
         </div>
       ) : (
