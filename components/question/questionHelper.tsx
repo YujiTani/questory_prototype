@@ -4,8 +4,8 @@ import {
   PopoverTrigger,
 } from "@radix-ui/react-popover";
 import ImageCenter from "../object/imageCenter";
-import { Label } from "@radix-ui/react-label";
-import { Input } from "../ui/input";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const QuestionHelper = () => {
@@ -27,39 +27,39 @@ const QuestionHelper = () => {
           <div className="mt-6 flex flex-col gap-4">
             <div className="flex items-center space-x-2">
               <Checkbox id="question_bug" />
-              <label
+              <Label
                 htmlFor="question_bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 問題がまちがっている
-              </label>
+              </Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="answer_bug" />
-              <label
+              <Label
                 htmlFor="answer_bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 解答がまちがっている
-              </label>
+              </Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="Explanation_bug" />
-              <label
+              <Label
                 htmlFor="Explanation_bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 解説がまちがっている
-              </label>
+              </Label>
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox id="bug" />
-              <label
+              <Label
                 htmlFor="bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 バグ報告(詳細もあると助かります)
-              </label>
+              </Label>
             </div>
             <div className="mt-6">
               <h3 className="text-md font-medium">詳細:</h3>
