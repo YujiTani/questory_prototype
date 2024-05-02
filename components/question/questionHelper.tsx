@@ -6,7 +6,7 @@ import {
 import ImageCenter from "../object/imageCenter";
 import { Label } from "@radix-ui/react-label";
 import { Input } from "../ui/input";
-import { Checkbox } from "@radix-ui/react-checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const QuestionHelper = () => {
   return (
@@ -18,30 +18,56 @@ const QuestionHelper = () => {
           size={8}
         />
       </PopoverTrigger>
-      <PopoverContent className="w-400px mx-auto my-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <PopoverContent className="PopoverContent w-80 border-slate-400 border-2 rounded-md shadow-xl">
         <form className="grid gap-4 bg-slate-100 p-4 rounded-md">
           <div className="space-y-2">
-            <h4 className="font-medium leading-none">フィードバック</h4>
-            <p className="text-sm text-muted-foreground">
-              以下の項目にチェックを入れて、詳細を入力してください。
-            </p>
+            <h3 className="text-lg font-bold">フィードバックフォーム</h3>
+            <p className="text-sm text-muted-foreground">項目にチェック</p>
           </div>
-          <div className="grid gap-2">
-            <Checkbox id="terms" />
-            <label htmlFor="terms">問題内容の不備</label>
-            <Checkbox id="bug" />
-            <label htmlFor="bug">バグ報告</label>
-            <Checkbox id="good" />
-            <label htmlFor="good">良いところ</label>
-            <Checkbox id="improvement" />
-            <label htmlFor="improvement">改善案</label>
-            <Checkbox id="other" />
-            <label htmlFor="other">その他</label>
-            <Label htmlFor="details">詳細:</Label>
-            <Input id="details" placeholder="詳細を入力" className="h-8" />
+          <div className="mt-6 flex flex-col gap-4">
+            <div className="flex items-center space-x-2">
+              <Checkbox id="question_bug" />
+              <label
+                htmlFor="question_bug"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                問題がまちがっている
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="answer_bug" />
+              <label
+                htmlFor="answer_bug"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                解答がまちがっている
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="Explanation_bug" />
+              <label
+                htmlFor="Explanation_bug"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                解説がまちがっている
+              </label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox id="bug" />
+              <label
+                htmlFor="bug"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                バグ報告(詳細もあると助かります)
+              </label>
+            </div>
+            <div className="mt-6">
+              <h3 className="text-md font-medium">詳細:</h3>
+              <Input id="details" placeholder="詳細" className="h-8" />
+            </div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
             >
               送信
             </button>
