@@ -26,10 +26,9 @@ const ImageCenter = ({
       <Image
         src={imageURL}
         alt={alt}
-        width={size * 1}
-        height={size * 1}
+        width={size * 16}
+        height={size * 16}
         sizes="100vw"
-        className={`w-${size} h-auto`}
       />
     </Comp>
   );

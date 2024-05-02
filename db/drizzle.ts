@@ -2,8 +2,4 @@ import { neon } from '@neondatabase/serverless';
 import { drizzle } from 'drizzle-orm/neon-http';
 import * as schema from './schema';
 
-const sql = neon(process.env.DRIZZLE_DATABASE_URL!);
-const db = drizzle(sql, { schema });
-// https://orm.drizzle.team/docs/rqb
-
-export default db;
+export const sql = neon( 'postgresql://lingo_owner:Rb0k1xWineac@ep-floral-thunder-a1o8njsn-pooler.ap-southeast-1.aws.neon.tech/answers_db?sslmode=require' );

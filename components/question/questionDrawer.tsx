@@ -35,6 +35,7 @@ type Props = {
   state: StageState;
   next: () => void;
   isCorrectAnswer: boolean;
+  stage_id: string;
 };
 
 const QuestionDrawer = ({
@@ -47,6 +48,7 @@ const QuestionDrawer = ({
   state,
   next,
   isCorrectAnswer,
+  stage_id,
 }: Props) => {
   const [submitText, setSubmitText] = useState("submit");
   const isPrepare = state === "prepare";
@@ -117,7 +119,10 @@ const QuestionDrawer = ({
           )}
         >
           <div className="absolute top-8px right-0 flex flex-col gap-2 w-6 mr-2 z-10">
-            <QuestionHelper />
+            <QuestionHelper
+              stage_id={Number(stage_id)}
+              question_id={Number(question?.id)}
+            />
             <ImageCenter
               imageURL="/image/icon_info2.svg"
               alt="icon_help"

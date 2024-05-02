@@ -8,28 +8,18 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
+import { sql } from "@/db/drizzle";
 
 type Props = {
-  stage_id: string;
-  question_id: string;
+  stage_id: number;
+  question_id: number;
 };
 
+// TODO: 生のSQLをつかっているので、ORMを使うように修正する
+// TODO: コードの可読性が悪いのでリファクタが必要
 const QuestionHelper = ({ stage_id, question_id }: Props) => {
   const [details, setDetails] = useState("");
   const [issueTypes, setIssueTypes] = useState<string[]>([]);
-
-  const handleCheckboxChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const { checked, value } = event.target;
-    setIssueTypes((prev) => {
-      if (checked) {
-        return [...prev, value];
-      } else {
-        return prev.filter((type) => type !== value);
-      }
-    });
-  };
 
   const handleDetailsChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -41,33 +31,23 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
     event.preventDefault();
 
     try {
-      // feedbacksテーブルにレコードを挿入し、feedback_idを取得
-      const feedbackResponse = await fetch("/api/feedbacks", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          details: details,
-          stage_id: stage_id,
-          question_id: question_id,
-        }),
-      });
-      const feedbackData: { id: string } = await feedbackResponse.json();
-      const feedbackId = feedbackData.id;
+      const feedback = await sql(
+        `
+      INSERT INTO user_feedbacks (details, stage_id, question_id)
+      VALUES ($1, $2, $3)
+      RETURNING id
+    `,
+        [details, stage_id, question_id]
+      );
 
-      // feedback_issuesテーブルにレコードを挿入
+      console.log("feedback", feedback[0].id);
       for (const issueType of issueTypes) {
-        await fetch("/api/feedback_issues", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            feedback_id: feedbackId,
-            issue_type: issueType,
-          }),
-        });
+        await sql(
+          `INSERT INTO feedback_issues (feedback_id, issue_type)
+          VALUES ($1, $2)
+          `,
+          [feedback[0].id, issueType]
+        );
       }
     } catch (error) {
       console.error("Error:", error);
@@ -100,7 +80,14 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
               <Checkbox
                 id="question_bug"
                 value="question_bug"
-                onChange={() => handleCheckboxChange}
+                checked={issueTypes.includes("question_bug")}
+                onCheckedChange={(checked) => {
+                  return checked
+                    ? setIssueTypes([...issueTypes, "question_bug"])
+                    : setIssueTypes(
+                        issueTypes.filter((value) => value !== "question_bug")
+                      );
+                }}
               />
               <Label
                 htmlFor="question_bug"
@@ -113,7 +100,14 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
               <Checkbox
                 id="answer_bug"
                 value="answer_bug"
-                onChange={() => handleCheckboxChange}
+                checked={issueTypes.includes("answer_bug")}
+                onCheckedChange={(checked) => {
+                  return checked
+                    ? setIssueTypes([...issueTypes, "answer_bug"])
+                    : setIssueTypes(
+                        issueTypes.filter((value) => value !== "answer_bug")
+                      );
+                }}
               />
               <Label
                 htmlFor="answer_bug"
@@ -126,7 +120,16 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
               <Checkbox
                 id="explanation_bug"
                 value="explanation_bug"
-                onChange={() => handleCheckboxChange}
+                checked={issueTypes.includes("explanation_bug")}
+                onCheckedChange={(checked) => {
+                  return checked
+                    ? setIssueTypes([...issueTypes, "explanation_bug"])
+                    : setIssueTypes(
+                        issueTypes.filter(
+                          (value) => value !== "explanation_bug"
+                        )
+                      );
+                }}
               />
               <Label
                 htmlFor="explanation_bug"
@@ -137,12 +140,19 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="bug"
-                value="bug"
-                onChange={() => handleCheckboxChange}
+                id="found_bugs"
+                value="found_bugs"
+                checked={issueTypes.includes("found_bugs")}
+                onCheckedChange={(checked) => {
+                  return checked
+                    ? setIssueTypes([...issueTypes, "found_bugs"])
+                    : setIssueTypes(
+                        issueTypes.filter((value) => value !== "found_bugs")
+                      );
+                }}
               />
               <Label
-                htmlFor="bug"
+                htmlFor="found_bugs"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 バグ報告(詳細もあると助かります)

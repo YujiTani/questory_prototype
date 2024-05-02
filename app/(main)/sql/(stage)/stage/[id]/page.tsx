@@ -218,6 +218,7 @@ const InnerStagePage = () => {
               state={state.stageState}
               next={next}
               isCorrectAnswer={state.isCorrectAnswer}
+              stage_id={stageId}
             />
           </div>
         </div>
@@ -261,6 +262,7 @@ const InnerStagePage = () => {
               state={state.stageState}
               next={next}
               isCorrectAnswer={state.isCorrectAnswer}
+              stage_id={stageId}
             />
           </div>
         </div>
