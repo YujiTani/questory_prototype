@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/common/button";
 import { cn } from "@/lib/utils";
 import {
   ClerkLoaded,
@@ -11,6 +11,7 @@ import {
 import { Loader } from "lucide-react";
 import Image from "next/image";
 import MobileSidebar from "./mobileSidebar";
+import { Skeleton } from "./skeleton";
 
 type Props = {
   className?: string;
@@ -19,14 +20,17 @@ type Props = {
 export const MobileHeader = ({ className }: Props) => {
   return (
     <header
-      className={cn("h-[50px] w-full border-b-2 border-slate-200", className)}
+      className={cn(
+        "h-[50px] w-full border-b-2 bg-white border-slate-200",
+        className
+      )}
     >
       <div className="lg:max-w-screen-lg pt-5 px-4 pb-4 mx-auto flex items-center justify-between h-full">
         <div className="flex items-center gap-3">
           <MobileSidebar />
         </div>
         <ClerkLoading>
-          <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+          <Skeleton className="w-[40px] h-[40px] bg-gray-200" />
         </ClerkLoading>
         <ClerkLoaded>
           <SignedIn>

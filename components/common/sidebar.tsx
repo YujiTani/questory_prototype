@@ -1,22 +1,22 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import SidebarItem from "./sidebarItem";
 import { ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import { SignInButton, SignedIn, SignedOut } from "@clerk/clerk-react";
 import { Button } from "./button";
-import { Loader } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { Skeleton } from "./skeleton";
+
+export const runtime = "edge";
 
 type Props = {
   className?: string;
 };
 
 const Sidebar = ({ className }: Props) => {
-	const pathname = usePathname();
-	const isActive = (path: string) => path === pathname;
+  const pathname = usePathname();
 
   return (
     <div
@@ -35,17 +35,17 @@ const Sidebar = ({ className }: Props) => {
       <div className="mt-10 h-full flex flex-col gap-5 justify-between">
         <SidebarItem
           href="/quests"
-          iconSrc="/icon_Destination.svg"
+          iconSrc="/image/icon_Destination.svg"
           label="Quests"
           className="w-[230px] m-auto"
         />
         <div>
           <ClerkLoading>
-            <Loader className="h-5 w-5 text-muted-foreground animate-spin" />
+            <Skeleton className="w-full h-[40px] bg-gray-200" />
           </ClerkLoading>
           <ClerkLoaded>
             <SignedIn>
-              <UserButton afterSignOutUrl="/">Hello</UserButton>
+              <UserButton afterSignOutUrl="/"></UserButton>
             </SignedIn>
             <SignedOut>
               <SignInButton
