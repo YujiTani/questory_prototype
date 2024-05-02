@@ -18,7 +18,9 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
   const [details, setDetails] = useState("");
   const [issueTypes, setIssueTypes] = useState<string[]>([]);
 
-  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCheckboxChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const { checked, value } = event.target;
     setIssueTypes((prev) => {
       if (checked) {
@@ -29,7 +31,9 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
     });
   };
 
-  const handleDetailsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDetailsChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setDetails(event.target.value);
   };
 
@@ -49,7 +53,7 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
           question_id: question_id,
         }),
       });
-      const feedbackData = await feedbackResponse.json();
+      const feedbackData: { id: string } = await feedbackResponse.json();
       const feedbackId = feedbackData.id;
 
       // feedback_issuesテーブルにレコードを挿入
@@ -67,6 +71,9 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
       }
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setIssueTypes([]);
+      setDetails("");
     }
   };
 
@@ -93,7 +100,7 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
               <Checkbox
                 id="question_bug"
                 value="question_bug"
-                onChange={handleCheckboxChange}
+                onChange={() => handleCheckboxChange}
               />
               <Label
                 htmlFor="question_bug"
@@ -106,7 +113,7 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
               <Checkbox
                 id="answer_bug"
                 value="answer_bug"
-                onChange={handleCheckboxChange}
+                onChange={() => handleCheckboxChange}
               />
               <Label
                 htmlFor="answer_bug"
@@ -117,19 +124,23 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
             </div>
             <div className="flex items-center space-x-2">
               <Checkbox
-                id="Explanation_bug"
-                value="Explanation_bug"
-                onChange={handleCheckboxChange}
+                id="explanation_bug"
+                value="explanation_bug"
+                onChange={() => handleCheckboxChange}
               />
               <Label
-                htmlFor="Explanation_bug"
+                htmlFor="explanation_bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 解説がまちがっている
               </Label>
             </div>
             <div className="flex items-center space-x-2">
-              <Checkbox id="bug" value="bug" onChange={handleCheckboxChange} />
+              <Checkbox
+                id="bug"
+                value="bug"
+                onChange={() => handleCheckboxChange}
+              />
               <Label
                 htmlFor="bug"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -151,7 +162,7 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
             </div>
             <button
               type="submit"
-              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md"
+              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded-md"
             >
               送信
             </button>
