@@ -128,6 +128,13 @@ const InnerStagePage = () => {
     }
   }, [state.currentQuestion, answerForSelectQuestion, answerForBuildQuestion]);
 
+  const playSE = useCallback((isCorrect: boolean) => {
+    const successSE = new Audio("/se/success2.mp3");
+    const failureSE = new Audio("/se/failure2.mp3");
+
+    isCorrect ? successSE.play() : failureSE.play();
+  }, []);
+
   useEffect(() => {
     const newAnswers = getAnswers();
     dispatch({ type: "SET_ANSWERS", payload: newAnswers });
@@ -150,6 +157,8 @@ const InnerStagePage = () => {
   const handleSubmit = async (isCorrect: boolean) => {
     dispatch({ type: "SET_STAGE_STATE", payload: "result" });
     dispatch({ type: "SET_IS_CORRECT_ANSWER", payload: isCorrect });
+
+    playSE(isCorrect);
 
     if (!state.currentQuestion) {
       dispatch({ type: "SET_ERROR", payload: "No question found" });
