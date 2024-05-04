@@ -117,7 +117,7 @@ const QuestionDrawer = ({
               question_id={Number(question?.id)}
             />
             <ImageCenter
-              imageURL="/image/icon_info2.svg"
+              imageURL="/image/icon_info3.svg"
               alt="icon_help"
               size={8}
               handleClick={handleShowExplanation}
