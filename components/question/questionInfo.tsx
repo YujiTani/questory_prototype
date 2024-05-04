@@ -1,7 +1,7 @@
 import {
   Question,
-  OneAnswerQuestion,
-  MultipleAnswerQuestion,
+  BuildQuestion,
+  SelectQuestion,
   QuestionType,
 } from "@/data/questions";
 import { Separator } from "@radix-ui/react-separator";
@@ -10,7 +10,7 @@ import { Badge } from "../ui/badge";
 import { QuestionBadge } from "./questionBadge";
 
 type Props = {
-  question: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+  question: Question | BuildQuestion | SelectQuestion | null;
   target: string;
   title: string;
   index: number;
