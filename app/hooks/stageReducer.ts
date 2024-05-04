@@ -1,4 +1,8 @@
-import { selectQuestion, buildQuestion } from "@/data/questions";
+import {
+  Question,
+  OneAnswerQuestion,
+  MultipleAnswerQuestion,
+} from "@/data/questions";
 
 export type StageState = "prepare" | "selected" | "result";
 
@@ -7,9 +11,9 @@ export interface State {
   isOpen: boolean;
   questionCount: number;
   totalCount: number;
-  questions: (selectQuestion | buildQuestion)[];
-  currentQuestion: selectQuestion | buildQuestion | null;
-  failureQuestion: selectQuestion | buildQuestion | null;
+  questions: (Question | OneAnswerQuestion | MultipleAnswerQuestion)[];
+  currentQuestion: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+  failureQuestion: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
   answers: string[];
@@ -19,21 +23,33 @@ export interface State {
 }
 
 export type Action =
-  | { type: 'SET_SNAP'; payload: number | string | null }
-  | { type: 'TOGGLE_OPEN' }
-  | { type: 'SET_QUESTION_COUNT'; payload: number }
-  | { type: 'INCREMENT_QUESTION_COUNT' }
-  | { type: 'SET_TOTAL_COUNT'; payload: number }
-  | { type: 'SET_QUESTIONS'; payload: (selectQuestion | buildQuestion)[]}
-  | { type: 'ADD_QUESTION'; payload: selectQuestion | buildQuestion }
-  | { type: 'SET_QUESTION'; payload: selectQuestion | buildQuestion | null }
-  | { type: 'SET_FAILURE_QUESTION'; payload: selectQuestion | buildQuestion | null }
-  | { type: 'SET_STAGE_STATE'; payload: "prepare" | "selected" | "result" }
-  | { type: 'SET_SELECTED_ANSWER'; payload: string }
-  | { type: 'SET_ANSWERS'; payload: string[] }
-  | { type: 'SET_IS_CORRECT_ANSWER'; payload: boolean }
-  | { type: 'SET_ERROR'; payload: string | null }
-  | { type: 'SHOW_CLEAR_SCREEN'; payload: boolean };
+  | { type: "SET_SNAP"; payload: number | string | null }
+  | { type: "TOGGLE_OPEN" }
+  | { type: "SET_QUESTION_COUNT"; payload: number }
+  | { type: "INCREMENT_QUESTION_COUNT" }
+  | { type: "SET_TOTAL_COUNT"; payload: number }
+  | {
+      type: "SET_QUESTIONS";
+      payload: (Question | OneAnswerQuestion | MultipleAnswerQuestion)[];
+    }
+  | {
+      type: "ADD_QUESTION";
+      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion;
+    }
+  | {
+      type: "SET_QUESTION";
+      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+    }
+  | {
+      type: "SET_FAILURE_QUESTION";
+      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+    }
+  | { type: "SET_STAGE_STATE"; payload: "prepare" | "selected" | "result" }
+  | { type: "SET_SELECTED_ANSWER"; payload: string }
+  | { type: "SET_ANSWERS"; payload: string[] }
+  | { type: "SET_IS_CORRECT_ANSWER"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string | null }
+  | { type: "SHOW_CLEAR_SCREEN"; payload: boolean };
 
 export const initialState: State = {
   snap: "148px",
@@ -53,35 +69,35 @@ export const initialState: State = {
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SET_SNAP':
+    case "SET_SNAP":
       return { ...state, snap: action.payload };
-    case 'TOGGLE_OPEN':
+    case "TOGGLE_OPEN":
       return { ...state, isOpen: !state.isOpen };
-    case 'SET_QUESTION_COUNT':
+    case "SET_QUESTION_COUNT":
       return { ...state, questionCount: action.payload };
-    case 'INCREMENT_QUESTION_COUNT':
+    case "INCREMENT_QUESTION_COUNT":
       return { ...state, questionCount: state.questionCount + 1 };
-    case 'SET_TOTAL_COUNT':
+    case "SET_TOTAL_COUNT":
       return { ...state, totalCount: action.payload };
-    case 'SET_QUESTIONS':
+    case "SET_QUESTIONS":
       return { ...state, questions: action.payload };
-    case 'ADD_QUESTION':
+    case "ADD_QUESTION":
       return { ...state, questions: [...state.questions, action.payload] };
-    case 'SET_QUESTION':
-      return{ ...state, currentQuestion: action.payload };
-    case 'SET_FAILURE_QUESTION':
+    case "SET_QUESTION":
+      return { ...state, currentQuestion: action.payload };
+    case "SET_FAILURE_QUESTION":
       return { ...state, failureQuestion: action.payload };
-    case 'SET_STAGE_STATE':
+    case "SET_STAGE_STATE":
       return { ...state, stageState: action.payload };
-    case 'SET_SELECTED_ANSWER':
+    case "SET_SELECTED_ANSWER":
       return { ...state, selectedAnswer: action.payload };
-    case 'SET_ANSWERS':
+    case "SET_ANSWERS":
       return { ...state, answers: action.payload };
-    case 'SET_IS_CORRECT_ANSWER':
+    case "SET_IS_CORRECT_ANSWER":
       return { ...state, isCorrectAnswer: action.payload };
-    case 'SET_ERROR':
+    case "SET_ERROR":
       return { ...state, isError: action.payload };
-    case 'SHOW_CLEAR_SCREEN':
+    case "SHOW_CLEAR_SCREEN":
       return { ...state, showClearScreen: action.payload };
     default:
       return state;
