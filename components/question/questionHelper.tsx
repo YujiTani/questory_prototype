@@ -1,5 +1,6 @@
 import {
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from "@radix-ui/react-popover";
