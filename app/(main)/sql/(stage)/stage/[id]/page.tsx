@@ -15,6 +15,7 @@ import { Skeleton } from "@/components/common/skeleton";
 import QuestionInfo from "@/components/question/questionInfo";
 import BuildAnswer from "@/components/question/buildAnswer";
 import SelectAnswer from "@/components/question/selectAnswer";
+import TwoChoiceAnswer from "@/components/question/twoChoiceAnswer";
 import { stages as stageData } from "@/data/stages";
 import ClearScreen from "@/components/question/clear";
 
@@ -56,7 +57,7 @@ const InnerStagePage = () => {
 
   // 初期化
   const init = useCallback(() => {
-    dispatch({ type: "SET_QUESTION_COUNT", payload: 1 });
+    dispatch({ type: "SET_QUESTION_COUNT", payload: 0 });
     dispatch({ type: "SET_QUESTION", payload: null });
 
     // rooplimitが0以上の場合、デバッグ用に出題数を絞る
@@ -120,6 +121,8 @@ const InnerStagePage = () => {
         return answerForSelectQuestion(state.currentQuestion);
       case "build":
         return answerForBuildQuestion(state.currentQuestion);
+      case "two_choice":
+        return [state.currentQuestion.answer];
       default:
         return [];
     }
@@ -199,6 +202,51 @@ const InnerStagePage = () => {
               {state.currentQuestion ? (
                 <SelectAnswer
                   answers={state.answers}
+                  handleClick={handleSelectedAnswer}
+                  selectedAnswer={state.selectedAnswer}
+                  state={state.stageState}
+                />
+              ) : (
+                <div className="mt-14 flex flex-col gap-4">
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                  <Skeleton className="w-[full] h-[40px] bg-gray-200" />
+                </div>
+              )}
+            </main>
+            <QuestionDrawer
+              snap={state.snap}
+              setSnap={(snap) => dispatch({ type: "SET_SNAP", payload: snap })}
+              isOpen={state.isOpen}
+              question={state.currentQuestion}
+              selectedAnswer={state.selectedAnswer}
+              handleSubmit={handleSubmit}
+              state={state.stageState}
+              next={next}
+              isCorrectAnswer={state.isCorrectAnswer}
+              stageId={stageId}
+            />
+          </div>
+        </div>
+      ) : state.currentQuestion?.type === "two_choice" ? (
+        <div>
+          <div className="scroll-smooth">
+            <QuestionInfo
+              question={state.currentQuestion}
+              target={
+                stageData.find(({ id }) => id === Number(stageId))?.target ?? ""
+              }
+              title={state.currentQuestion?.question ?? ""}
+              index={state.questionCount}
+              count={state.questions.length}
+              type={state.currentQuestion?.type}
+            />
+            <main className="mt-14 overflow-auto max-h-[calc(100vh-200px)]">
+              {state.currentQuestion ? (
+                <TwoChoiceAnswer
+                  answer={state.currentQuestion.answer}
+                  falseAnswer={state.currentQuestion.falseAnswer!}
                   handleClick={handleSelectedAnswer}
                   selectedAnswer={state.selectedAnswer}
                   state={state.stageState}

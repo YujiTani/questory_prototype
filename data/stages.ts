@@ -5,14 +5,14 @@ export type StageType = {
   complete_case: number; //  1: "全問正解"
   failed_case: number; //  1: "同じ問題を5回間違える"
   area_id: number;
-  state: "public" | "private" | "stopped" | "coming_soon"; 
+  state: "public" | "private" | "stopped" | "coming_soon";
   stage_size?: number;
 };
 
 export const stages = [
   {
     id: 1,
-    target: "正解の単語をえらんでください",
+    target: "2つの解答から、正解だと思う方をえらんでください",
     index: 1,
     complete_case: 1,
     failed_case: 1,
@@ -22,7 +22,7 @@ export const stages = [
   },
   {
     id: 2,
-    target: "SQLをつくってみよう!(データ取得)",
+    target: "正解の単語をえらんでください",
     index: 2,
     complete_case: 1,
     failed_case: 1,
@@ -32,21 +32,23 @@ export const stages = [
   },
   {
     id: 3,
-    target: "SQLをつくってみよう!(データ更新)",
+    target: "SQLをつくってみよう!",
     index: 3,
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
-    state: "coming_soon",
+    state: "public",
+    stage_size: 100,
   },
   {
     id: 4,
-    target: "SQLをつくってみよう!(データの追加)",
+    target: "SQL問題(mix)",
     index: 4,
     complete_case: 1,
     failed_case: 1,
     area_id: 1,
-    state: "coming_soon",
+    state: "public",
+    stage_size: 100,
   },
   {
     id: 5,
@@ -54,7 +56,7 @@ export const stages = [
     index: 5,
     complete_case: 1,
     failed_case: 1,
-    area_id:1,
+    area_id: 1,
     state: "coming_soon",
   },
   {

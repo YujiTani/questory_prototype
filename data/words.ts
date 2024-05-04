@@ -140,7 +140,7 @@ const words3 = [
   {
     id: 18,
     name: "created_at",
-    synonyms: "updated_at,create_date,create_time",
+    synonyms: "updated_at,deleted_at,create_time",
     question_id: 3,
     index: 2,
   },
@@ -213,7 +213,7 @@ const words4 = [
   {
     id: 27,
     name: "created_at",
-    synonyms: "updated_at,create_date,create_time",
+    synonyms: "updated_at,delete_date,create_time",
     question_id: 4,
     index: 4,
   },

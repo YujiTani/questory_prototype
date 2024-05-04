@@ -1,16 +1,21 @@
-import { selectQuestion, buildQuestion } from "@/data/questions";
+import {
+  Question,
+  BuildQuestion,
+  SelectQuestion,
+  QuestionType,
+} from "@/data/questions";
 import { Separator } from "@radix-ui/react-separator";
 import { Skeleton } from "../common/skeleton";
 import { Badge } from "../ui/badge";
 import { QuestionBadge } from "./questionBadge";
 
 type Props = {
-  question: selectQuestion | buildQuestion | null;
+  question: Question | BuildQuestion | SelectQuestion | null;
   target: string;
   title: string;
   index: number;
   count: number;
-  type: "select" | "build" | undefined;
+  type: QuestionType | undefined;
 };
 
 const QuestionInfo = ({
@@ -21,7 +26,8 @@ const QuestionInfo = ({
   count,
   type,
 }: Props) => {
-  const typeText = type === "select" ? "4択" : "組み立て";
+  const typeText =
+    type === "two_choice" ? "2択" : type === "select" ? "4択" : "組み立て";
 
   return (
     <div className="mt-4 p-3 border-2 border-slate-300 rounded-md flex flex-col gap-3 border-b-[4px] border-b-slate-300 tracking-wide">
