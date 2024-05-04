@@ -17,6 +17,7 @@ const users = pgTable('users', {
 const userFeedbacks = pgTable('user_feedbacks', {
   id: serial('id').primaryKey(),
   details: text('details'),
+  other: varchar('other', { length: 256 }),
   stage_id: integer('stage_id').notNull(),
   question_id: integer('question_id').notNull(),
   created_at: timestamp('created_at').default(sql`now()`),

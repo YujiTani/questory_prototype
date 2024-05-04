@@ -15,6 +15,13 @@
       "when": 1714655498446,
       "tag": "0001_hot_maverick",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1714777440503,
+      "tag": "0002_acoustic_mach_iv",
+      "breakpoints": true
     }
   ]
 }
