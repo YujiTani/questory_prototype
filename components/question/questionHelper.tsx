@@ -1,5 +1,6 @@
 import {
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from "@radix-ui/react-popover";
@@ -10,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useState } from "react";
 import { sql } from "@/db/drizzle";
 import { Badge } from "../ui/badge";
+import { Cross2Icon } from "@radix-ui/react-icons";
 
 type Props = {
   stage_id: number;
@@ -80,7 +82,12 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
           className="grid gap-4 bg-slate-100 p-4 rounded-md"
         >
           <div className="space-y-2">
-            <h3 className="text-lg font-bold">フィードバックフォーム</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-bold">フィードバックフォーム</h3>
+              <PopoverClose className="PopoverClose" aria-label="Close">
+                <Cross2Icon />
+              </PopoverClose>
+            </div>
             <h4 className="mt-6 text-sm">
               項目にチェックし、送信してください。
               <Badge className="bg-red-500">必須</Badge>
