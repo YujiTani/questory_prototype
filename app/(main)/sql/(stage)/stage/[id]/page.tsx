@@ -130,8 +130,9 @@ const InnerStagePage = () => {
 
   const playSE = useCallback((isCorrect: boolean) => {
     const successSE = new Audio("/se/success2.mp3");
+    const failureSE = new Audio("/se/failure2.mp3");
 
-    isCorrect ? successSE.play() : null;
+    isCorrect ? successSE.play() : failureSE.play();
   }, []);
 
   useEffect(() => {
