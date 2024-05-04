@@ -121,6 +121,8 @@ const InnerStagePage = () => {
         return answerForSelectQuestion(state.currentQuestion);
       case "build":
         return answerForBuildQuestion(state.currentQuestion);
+      case "two_choice":
+        return [state.currentQuestion.answer];
       default:
         return [];
     }

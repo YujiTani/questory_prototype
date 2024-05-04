@@ -1,8 +1,4 @@
-import {
-  Question,
-  OneAnswerQuestion,
-  MultipleAnswerQuestion,
-} from "@/data/questions";
+import { Question, BuildQuestion, SelectQuestion } from "@/data/questions";
 
 export type StageState = "prepare" | "selected" | "result";
 
@@ -11,9 +7,9 @@ export interface State {
   isOpen: boolean;
   questionCount: number;
   totalCount: number;
-  questions: (Question | OneAnswerQuestion | MultipleAnswerQuestion)[];
-  currentQuestion: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
-  failureQuestion: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+  questions: (Question | BuildQuestion | SelectQuestion)[];
+  currentQuestion: Question | BuildQuestion | SelectQuestion | null;
+  failureQuestion: Question | BuildQuestion | SelectQuestion | null;
   stageState: StageState;
   selectedAnswer: string | null;
   answers: string[];
@@ -30,19 +26,19 @@ export type Action =
   | { type: "SET_TOTAL_COUNT"; payload: number }
   | {
       type: "SET_QUESTIONS";
-      payload: (Question | OneAnswerQuestion | MultipleAnswerQuestion)[];
+      payload: (Question | BuildQuestion | SelectQuestion)[];
     }
   | {
       type: "ADD_QUESTION";
-      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion;
+      payload: Question | BuildQuestion | SelectQuestion;
     }
   | {
       type: "SET_QUESTION";
-      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+      payload: Question | BuildQuestion | SelectQuestion | null;
     }
   | {
       type: "SET_FAILURE_QUESTION";
-      payload: Question | OneAnswerQuestion | MultipleAnswerQuestion | null;
+      payload: Question | BuildQuestion | SelectQuestion | null;
     }
   | { type: "SET_STAGE_STATE"; payload: "prepare" | "selected" | "result" }
   | { type: "SET_SELECTED_ANSWER"; payload: string }

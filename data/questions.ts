@@ -4,19 +4,32 @@ export type Question = {
   id: number;
   question: string;
   answer: string;
+  falseAnswer: string;
   stage_id: number;
-  type: QuestionType;
+  type: "two_choice";
   failure: number;
   explanation: string;
-  falseAnswer?: string;
 };
 
-export type OneAnswerQuestion = Question & {
-  falseAnswer: string;
+export type BuildQuestion = {
+  id: number;
+  question: string;
+  answer: string;
+  stage_id: number;
+  type: "build";
+  failure: number;
+  explanation: string;
 };
 
-export type MultipleAnswerQuestion = Question & {
+export type SelectQuestion = {
+  id: number;
+  question: string;
+  answer: string;
   falseAnswers: string[];
+  stage_id: number;
+  type: "select";
+  failure: number;
+  explanation: string;
 };
 
 const simpleSQLQuestions = [
@@ -121,7 +134,7 @@ const simpleSQLQuestions = [
     type: "two_choice",
     failure: 0,
   },
-] as const satisfies OneAnswerQuestion[];
+] as const satisfies Question[];
 
 const twoChoiceQuestions = [
   {
@@ -240,7 +253,7 @@ const twoChoiceQuestions = [
     type: "two_choice",
     failure: 0,
   },
-] as const satisfies OneAnswerQuestion[];
+] as const satisfies Question[];
 
 const selectQuestions = [
   {
@@ -351,7 +364,7 @@ const selectQuestions = [
     type: "select",
     failure: 0,
   },
-] as const satisfies MultipleAnswerQuestion[];
+] as const satisfies SelectQuestion[];
 
 // 選択しながら並べる問題
 const buildQuestions = [
@@ -445,7 +458,7 @@ const buildQuestions = [
     type: "build",
     failure: 0,
   },
-] as const satisfies Question[];
+] as const satisfies BuildQuestion[];
 
 // 2種類の問題を混ぜたコース
 const mixQuestions = [
@@ -560,7 +573,7 @@ const mixQuestions = [
     type: "build",
     failure: 0,
   },
-] as const satisfies (Question | MultipleAnswerQuestion)[];
+] as const satisfies (SelectQuestion | BuildQuestion)[];
 
 export const questionsList = [
   { id: 1, questions: simpleSQLQuestions },

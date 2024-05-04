@@ -12,7 +12,7 @@ import clsx from "clsx";
 import { Button } from "@/components/common/button";
 import { useEffect, useState, useRef } from "react";
 import { StageState } from "@/app/hooks/stageReducer";
-import { selectQuestion, buildQuestion } from "@/data/questions";
+import { SelectQuestion, BuildQuestion, Question } from "@/data/questions";
 import ImageCenter from "../object/imageCenter";
 import QuestionHelper from "./questionHelper";
 
@@ -22,7 +22,7 @@ type Props = {
   snap: number | string | null;
   setSnap: (snap: number | string | null) => void;
   isOpen: boolean;
-  question: selectQuestion | buildQuestion | null;
+  question: Question | SelectQuestion | BuildQuestion | null;
   selectedAnswer: string | null;
   handleSubmit: (payload: boolean) => void;
   state: StageState;
