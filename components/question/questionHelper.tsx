@@ -61,6 +61,7 @@ const QuestionHelper = ({ stage_id, question_id }: Props) => {
     } finally {
       setIssueTypes([]);
       setDetails("");
+      setOther("");
     }
   };
 
