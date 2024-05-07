@@ -40,6 +40,20 @@ Progate、ドットインストール、Codecademyあたりが競合になるの
 - Codecademy … 英語サイト、codeをタイピングする必要があるので、スマホでの学習に向いていない
 
 # ■ 機能候補
+## 使用予定の技術スタック
+| フロントエンド | TypeScript / React / Next.js / TailwindCSS / shadch/ui |
+| :--- | :--- |
+| バックエンド | Ruby / Ruby on Rails / MySQL or PostgreSQL |
+| :--- | :--- |
+| インフラ | Cloudflare Pages |
+| :--- | :--- |
+| CI/CD | Cloudflare Pages / GitHub Actions |
+| :--- | :--- |
+| 開発環境 | Mac Apple Silicon / Cursor / Github Copilot | 
+| :--- | :--- |
+| 認証 | OAuth 2.0 / LINE / Github |
+| :--- | :--- |
+
 ## 現状作ろうと思っている機能
 ### バックエンド
 - 認証機能(SNS認証, LINEを優先)
