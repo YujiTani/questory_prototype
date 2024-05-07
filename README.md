@@ -41,7 +41,6 @@ Progate、ドットインストール、Codecademyあたりが競合になるの
 
 # ■ 機能候補
 ## 使用予定の技術スタック
-| :--- | :--- |
 | フロントエンド | TypeScript / React / Next.js / TailwindCSS / shadch/ui |
 | バックエンド | Ruby / Ruby on Rails / MySQL or PostgreSQL |
 | インフラ | Cloudflare Pages |
