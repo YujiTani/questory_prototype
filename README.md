@@ -227,3 +227,6 @@ FigJamで作成: https://www.figma.com/board/oLAwnKL7yg2kW3x0DnKRmn/QueStory%E7%
 直接変更できるものではなく、一旦メールなどを介して専用のページで変更する画面遷移になっているか？
 - [ ] メールアドレス
 - [ ] パスワード
+
+## ER diagram
+URL: https://app.eraser.io/workspace/9Hn0SB4wGD22b29kdukt?origin=share&elements=wX7Mu986qAHAYC8NDMGSWA
