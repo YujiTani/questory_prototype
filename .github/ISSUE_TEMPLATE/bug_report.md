@@ -1,38 +1,44 @@
 ---
-name: Bug report
+name: バグ報告
 about: Create a report to help us improve
 title: ''
-labels: ''
-assignees: ''
+labels: 'bug, help wanted, 優先度: 中, 優先度: 低, 優先度: 高, 進行中'
+assignees: YujiTani
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+---
+name: バグ報告
+about: バグを報告するためのテンプレート
+title: "[バグ] バグの簡単な説明"
+labels: bug
+assignees: ''
+---
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## バグの詳細
+<!-- ここにバグの詳細な説明を記述してください。 -->
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## 再現手順
+<!-- バグを再現するための手順を記述してください。 -->
+1. 手順1
+2. 手順2
+3. 手順3
+4. ...
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## 期待される動作
+<!-- 正常な場合に期待される動作を記述してください。 -->
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+## 実際の動作
+<!-- 実際に発生した動作を記述してください。 -->
 
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
+## スクリーンショット
+<!-- 必要に応じて、問題のスクリーンショットを追加してください。 -->
 
-**Additional context**
-Add any other context about the problem here.
+## 環境情報
+<!-- バグが発生した環境を記述してください。 -->
+- OS: [例: Windows 10, macOS 11.2]
+- ブラウザ: [例: Chrome 89, Firefox 86]
+- バージョン: [例: 1.0.0]
+
+## 追加情報
+<!-- その他の追加情報があれば記述してください。 -->
