@@ -1,9 +1,9 @@
 ---
-name: フロント：バグ報告
+name: バグ報告
 about: Create a report to help us improve
 title: ''
-labels: bug, frontend
-assignees: ''
+labels: 'bug, help wanted, 優先度: 中, 優先度: 低, 優先度: 高, 進行中'
+assignees: YujiTani
 
 ---
 
